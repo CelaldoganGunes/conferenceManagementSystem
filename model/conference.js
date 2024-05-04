@@ -5,6 +5,10 @@ const conferenceSchema = new mongoose.Schema({
         type : String,
         required: true
     },
+    address: {
+        type : String,
+        required: true
+    },
     startDate: {
         type : Date,
         required: true
@@ -22,7 +26,11 @@ const conferenceSchema = new mongoose.Schema({
         of: Number,
         required: true
     },
-    paperList : [mongoose.Schema.ObjectId],
+    attendeeLimit: { // admin bile katılımcı sayılır
+        type : Number,
+        required: true
+    },
+
     
 
 });

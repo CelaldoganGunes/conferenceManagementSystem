@@ -5,8 +5,8 @@ const paperSchema = new mongoose.Schema({
         type : mongoose.Schema.ObjectId,
         required: true
     },
-    name: {
-        type : String,
+    conferenceId : {
+        type : mongoose.Schema.ObjectId,
         required: true
     },
     title: {
@@ -20,12 +20,7 @@ const paperSchema = new mongoose.Schema({
     keywords : { //"asdsa, asdsa, asdas,asdas as,asdas as das, asdasdas,"
         type : String,
         required: true
-    },
-    reviewList : { // Reviewer ID (String) -> Verdiği Puan (Integer)
-        type : Map,
-        of: Number,
-        required: true
-    },
+    }
     
 });
 
