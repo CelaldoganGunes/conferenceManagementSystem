@@ -101,6 +101,8 @@ module.exports = {
     getConferences,
     getConferenceById,
     getConferencesByCreatorId,
+    getRoleByUserId,
+    setRoleByUserId,
     updateConference,
     deleteConference
 };

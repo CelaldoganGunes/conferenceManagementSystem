@@ -21,7 +21,7 @@ mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
 // Routes
 app.use('/user', userRoutes);
 //app.use('/api', paperRoutes);
-app.use('/conferences', conferenceRoutes);
+app.use('/conference', conferenceRoutes);
 //app.use('/api', reviewRoutes);
 //app.use('/api', sessionRoutes);
 

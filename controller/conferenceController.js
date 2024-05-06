@@ -1,112 +1,99 @@
-const {
-    createConference,
-    getConferences,
-    getConferenceById,
-    getConferencesByCreatorId,
-    updateConference,
-    deleteConference,
-    getRoleByUserId,
-    setRoleByUserId
-} = require('../service/conferenceService');
+const conferenceService = require('../service/conferenceService');
 
-const conferenceController = {
-    // Create a conference
-    async createConference(req, res) {
+const ConferenceController = {
+    // Konferans oluşturma
+    async createConference(req, res, next) {
         const { name, address, startDate, endDate, creatorId, attendeeList, attendeeLimit } = req.body;
         try {
-            const newConference = await createConference(name, address, startDate, endDate, creatorId, attendeeList, attendeeLimit, yarrak);
+            const newConference = await conferenceService.createConference(name, address, startDate, endDate, creatorId, attendeeList, attendeeLimit);
             res.status(201).json(newConference);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     },
 
-    // Get all conferences
-    async getConferences(req, res) {
+    // Tüm konferansları getirme
+    async getConferences(req, res, next) {
         try {
-            res.send("31");
-            //const conferences = await getConferences();
-            //res.json(conferences);
+            const conferences = await conferenceService.getConferences();
+            res.status(200).json(conferences);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     },
 
-    // Get a conference by ID
-    async getConferenceById(req, res) {
-        const conferenceId = req.params.id;
+    // Konferansı ID'ye göre getirme
+    async getConferenceById(req, res, next) {
+        const conferenceId = req.params.conferenceId;
         try {
-            const conference = await getConferenceById(conferenceId);
+            const conference = await conferenceService.getConferenceById(conferenceId);
             if (!conference) {
-                res.status(404).json({ error: "Conference not found" });
-                return;
+                return res.status(404).json({ message: 'Konferans bulunamadı' });
             }
-            res.json(conference);
+            res.status(200).json(conference);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     },
 
-    // Get a conference by Creator ID
-    async getConferencesByCreatorId(req, res) {
-        const conferenceId = req.params.id;
+    // Oluşturucu ID'sine göre konferansları getirme
+    async getConferencesByCreatorId(req, res, next) {
+        const creatorId = req.params.creatorId;
         try {
-            const conference = await getConferencesByCreatorId(conferenceId);
-            if (!conference) {
-                res.status(404).json({ error: "Conference not found" });
-                return;
-            }
-            res.json(conference);
+            const conferences = await conferenceService.getConferencesByCreatorId(creatorId);
+            res.status(200).json(conferences);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     },
 
-    // Update a conference
-    async updateConference(req, res) {
-        const conferenceId = req.params.id;
+    // Kullanıcı ID'sine göre rol getirme
+    async getRoleByUserId(req, res, next) {
+        const { conferenceId, userId } = req.params;
+        try {
+            const role = await conferenceService.getRoleByUserId(conferenceId, userId);
+            res.status(200).json({ role });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    // Kullanıcı ID'sine göre rol ayarlama
+    async setRoleByUserId(req, res, next) {
+        const { conferenceId, userId, role } = req.params;
+        try {
+            await conferenceService.setRoleByUserId(conferenceId, userId, role);
+            res.status(200).json({ message: 'Rol başarıyla ayarlandı' });
+        } catch (error) {
+            next(error);
+        }
+    },
+
+    // Konferansı güncelleme
+    async updateConference(req, res, next) {
+        const conferenceId = req.params.conferenceId;
         const newData = req.body;
         try {
-            const updatedConference = await updateConference(conferenceId, newData);
-            res.json(updatedConference);
+            const updatedConference = await conferenceService.updateConference(conferenceId, newData);
+            if (!updatedConference) {
+                return res.status(404).json({ message: 'Konferans bulunamadı' });
+            }
+            res.status(200).json(updatedConference);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     },
 
-    // Delete a conference
-    async deleteConference(req, res) {
-        const conferenceId = req.params.id;
+    // Konferansı silme
+    async deleteConference(req, res, next) {
+        const conferenceId = req.params.conferenceId;
         try {
-            await deleteConference(conferenceId);
-            res.json({ message: "Conference deleted successfully" });
+            await conferenceService.deleteConference(conferenceId);
+            res.status(204).end();
         } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-
-    // Get role by user ID in a conference
-    async getRoleByUserId(req, res) {
-        const { conferenceId, userId } = req.params;
-        try {
-            const role = await getRoleByUserId(conferenceId, userId);
-            res.json({ role });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    },
-
-    // Set role by user ID in a conference
-    async setRoleByUserId(req, res) {
-        const { conferenceId, userId } = req.params;
-        const { role } = req.body;
-        try {
-            await setRoleByUserId(conferenceId, userId, role);
-            res.json({ message: "Role set successfully" });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
+            next(error);
         }
     }
 };
 
-module.exports = conferenceController;
+module.exports = ConferenceController;
