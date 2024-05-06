@@ -9,8 +9,6 @@ const {
     setRoleByUserId
 } = require('../service/conferenceService');
 
-const express = require('express');
-
 const conferenceController = {
     // Create a conference
     async createConference(req, res) {

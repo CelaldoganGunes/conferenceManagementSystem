@@ -1,11 +1,11 @@
 const express = require('express');
 const mongoose = require('mongoose');
 
-//const userRoutes = require('./routes/userRoutes');
-//const paperRoutes = require('./routes/paperRoutes');
+const userRoutes = require('./route/userRoute');
+//const paperRoutes = require('./route/paperRoutes');
 const conferenceRoutes = require('./route/conferenceRoute');
-//const reviewRoutes = require('./routes/reviewRoutes');
-//const sessionRoutes = require('./routes/sessionRoutes');
+//const reviewRoutes = require('./route/reviewRoutes');
+//const sessionRoutes = require('./route/sessionRoutes');
 
 const app = express();
 
@@ -19,7 +19,7 @@ mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
 });
 
 // Routes
-//app.use('/api', userRoutes);
+app.use('/user', userRoutes);
 //app.use('/api', paperRoutes);
 app.use('/conferences', conferenceRoutes);
 //app.use('/api', reviewRoutes);
