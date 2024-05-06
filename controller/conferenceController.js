@@ -7,7 +7,9 @@ const {
     deleteConference,
     getRoleByUserId,
     setRoleByUserId
-} = require('../services/conferenceService');
+} = require('../service/conferenceService');
+
+const express = require('express');
 
 const conferenceController = {
     // Create a conference
@@ -24,8 +26,9 @@ const conferenceController = {
     // Get all conferences
     async getConferences(req, res) {
         try {
-            const conferences = await getConferences();
-            res.json(conferences);
+            res.send("31");
+            //const conferences = await getConferences();
+            //res.json(conferences);
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
