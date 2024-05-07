@@ -8,11 +8,13 @@ router.post('/create', UserController.createUser);
 // Tüm kullanıcıları getirme
 router.get('/', UserController.getUsers);
 
-// ID'ye göre kullanıcıyı getirme
-router.get('/:userId', UserController.getUserById);
+router.get('/conferences',UserController.getConferencesByAttendeeId);
 
 // E-posta ile kullanıcıyı getirme
 router.get('/email/:email', UserController.getUserByEmail);
+
+// ID'ye göre kullanıcıyı getirme
+router.get('/:userId', UserController.getUserById);
 
 // Kullanıcıyı güncelleme
 router.patch('/:userId', UserController.updateUser);

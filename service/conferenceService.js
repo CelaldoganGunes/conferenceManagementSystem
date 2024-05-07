@@ -49,6 +49,7 @@ async function getConferencesByCreatorId(creatorId) {
     }
 }
 
+
 // Kullanıcı ID'sine göre rol getirme
 async function getRoleByUserId(conferenceId, userId) {
     try {

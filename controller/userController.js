@@ -1,4 +1,6 @@
 const userService = require('../service/userService');
+const conferenceService = require('../service/conferenceService');
+
 
 const userController = {
     // Kullanıcı oluşturma
@@ -21,7 +23,32 @@ const userController = {
             next(error);
         }
     },
+    async getConferencesByAttendeeId(req, res, next)
+    {
+        console.log("anasikem")
+        const attendeeId = req.body.userId;
+        console.log(attendeeId);
+        try {
+            const conferences = await conferenceService.getConferences();
+            console.log("asds");
+            if (!conferences) {
+                return res.status(404).json({ message: 'Konferans bulunamadı amk' });
+            }
+            
+            let conferencesOfTheUser = [];
+            conferences.forEach(element => {
+                if(element.attendeeList.get(attendeeId))
+                {
+                    conferencesOfTheUser.push(element);
+                }
+            });
 
+            res.status(200).json(conferencesOfTheUser);
+        } catch (error) {
+            next(error);
+        }
+    },
+    
     // ID'ye göre kullanıcıyı getirme
     async getUserById(req, res, next) {
         const userId = req.params.userId;
@@ -49,6 +76,7 @@ const userController = {
             next(error);
         }
     },
+
 
     // Kullanıcıyı güncelleme
     async updateUser(req, res, next) {
