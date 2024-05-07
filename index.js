@@ -4,7 +4,7 @@ const mongoose = require('mongoose');
 const userRoutes = require('./route/userRoute');
 const paperRoutes = require('./route/paperRoute');
 const conferenceRoutes = require('./route/conferenceRoute');
-//const reviewRoutes = require('./route/reviewRoutes');
+const reviewRoutes = require('./route/reviewRoute');
 //const sessionRoutes = require('./route/sessionRoutes');
 
 const app = express();
@@ -22,7 +22,7 @@ mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
 app.use('/user', userRoutes);
 app.use('/paper', paperRoutes);
 app.use('/conference', conferenceRoutes);
-//app.use('/api', reviewRoutes);
+app.use('/review', reviewRoutes);
 //app.use('/api', sessionRoutes);
 
 // Ana sayfa
