@@ -1,4 +1,6 @@
 const Paper = require('../model/paper');
+const reviewService = require('../service/reviewService');
+const conferenceService = require('../service/conferenceService');
 
 // Makale oluşturma
 async function createPaper(creatorId, conferenceId, title, abstract, keywords) {
@@ -11,6 +13,27 @@ async function createPaper(creatorId, conferenceId, title, abstract, keywords) {
             keywords
         });
         const savedPaper = await newPaper.save();
+        
+        // Reviewer'ları belirle
+        
+        const reviewerList = [];
+
+        let conference = await conferenceService.getConferenceById(conferenceId);
+        conference.attendeeList.forEach((value, key) => {
+            if (value == 2)// reviewer rol ID
+            {
+                reviewerList.push(key);
+            }
+        });
+        
+        // Rastgele bir Reviewer seç
+        
+        const randomIndex = Math.floor(Math.random() * reviewerList.length);
+        let reviewerId = reviewerList[randomIndex];
+        console.log(reviewerId);
+        // Review oluştur
+        const review = await reviewService.createReview(reviewerId, savedPaper._id, 0, "Paper has not been reviewed yet.");
+
         return savedPaper;
     } catch (error) {
         throw new Error(`Makale oluşturulamadı: ${error.message}`);
