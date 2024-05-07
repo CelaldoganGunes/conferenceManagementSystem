@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 
 const userRoutes = require('./route/userRoute');
-//const paperRoutes = require('./route/paperRoutes');
+const paperRoutes = require('./route/paperRoute');
 const conferenceRoutes = require('./route/conferenceRoute');
 //const reviewRoutes = require('./route/reviewRoutes');
 //const sessionRoutes = require('./route/sessionRoutes');
@@ -20,7 +20,7 @@ mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
 
 // Routes
 app.use('/user', userRoutes);
-//app.use('/api', paperRoutes);
+app.use('/paper', paperRoutes);
 app.use('/conference', conferenceRoutes);
 //app.use('/api', reviewRoutes);
 //app.use('/api', sessionRoutes);
