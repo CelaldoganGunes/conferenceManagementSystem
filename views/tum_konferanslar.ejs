@@ -73,15 +73,42 @@
             <% conferences.forEach(conference => { %>
                 <div class="conference-item">
                     <h2><%= conference.name %></h2>
+                    <p>ID: <%= conference._id %></p>
                     <p>Başlangıç Tarihi: <%= conference.startDate %></p>
                     <p>Bitiş Tarihi: <%= conference.endDate %></p>
                     <p>Adres: <%= conference.address %></p>
-                    <% if (!conference.attended) { %>
-                        <button>Katıl</button>
+
+                    <% if (!conference.attendeeList.get(user._id)) { %>
+                        <button onclick="katil('<%= conference._id %>')">Katıl</button>
                     <% } %>
                 </div>
             <% }); %>
         </div>
     </main>
+
+    <script>
+        function katil(conferenceId) {
+            fetch('/katil', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ conferenceId: conference_Id, userId: user._id, role: 1 })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Servis çağrısı başarısız!');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+                // Gerekirse başka işlemler yapabilirsiniz
+            })
+            .catch(error => {
+                console.error('Hata:', error);
+            });
+        }
+    </script>
 </body>
 </html>

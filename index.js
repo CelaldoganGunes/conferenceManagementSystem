@@ -15,11 +15,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded());
-app.use(session({
-    secret: 'mysecret',
-    resave: false,
-    saveUninitialized: true
-}));
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
 
 
 // MongoDB bağlantısı
@@ -63,7 +59,10 @@ app.get('/tum_konferanslar', async (req, res) => {
     const conferences = await conferenceService.getConferences();
     console.log(conferences);
     
-    res.render('tum_konferanslar', { conferences });
+    res.render('tum_konferanslar', { 
+        conferences : conferences ,
+        user : req.session.user
+    });
 });
 
 
