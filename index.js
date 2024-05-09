@@ -66,12 +66,27 @@ app.get('/tum_konferanslar', async (req, res) => {
 });
 
 
-app.get('/kullanicinin_konferanslari', async (req, res) => {
+app.get('/katildigim_konferanslar', async (req, res) => {
     let conferenceService = require('./service/conferenceService');
-    const conferences = await conferenceService.getConferenceById();
-    console.log(conferences);
+    const attendeeId = req.session.user._id;
+    console.log(attendeeId);
+    const conferences = await conferenceService.getConferences();
+    if (!conferences) {
+        throw new Error("konferans yok");
+    }
     
-    res.render('tum_konferanslar', { conferences });
+    let conferencesOfTheUser = [];
+    conferences.forEach(element => {
+        if(element.attendeeList.get(attendeeId))
+        {
+            conferencesOfTheUser.push(element);
+        }
+    });
+
+    res.render('katildigim_konferanslar', { 
+        conferences : conferencesOfTheUser ,
+        user : req.session.user
+    });
 });
 
 const PORT = process.env.PORT || 80;
