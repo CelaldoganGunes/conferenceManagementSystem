@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tüm Konferanslar</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
+                <li><a href="#">Katıldığım Konferanslar</a></li>
+                <li><a href="#">Oluşturduğum Konferanslar</a></li>
+                <li><a href="#">Yazılarım</a></li>
+                <li><a href="#">İncelemelerim</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1>Tüm Konferanslar</h1>
+        <div class="conference-grid">
+            <% conferences.forEach(conference => { %>
+                <div class="conference-item">
+                    <h2><%= conference.name %></h2>
+                    <p>Başlangıç Tarihi: <%= conference.startDate %></p>
+                    <p>Bitiş Tarihi: <%= conference.endDate %></p>
+                    <p>Adres: <%= conference.address %></p>
+                    <% if (!conference.attended) { %>
+                        <button>Katıl</button>
+                    <% } %>
+                </div>
+            <% }); %>
+        </div>
+    </main>
+</body>
+</html>
