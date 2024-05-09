@@ -4,6 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tüm Konferanslar</title>
+    <style>
+        header {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+        .conference-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .conference-item {
+            width: 30%;
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 20px solid #ccc;
+            border-radius: px;
+        }
+        .conference-item h2 {
+            margin-top: 0;
+        }
+        .conference-item button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <header>
