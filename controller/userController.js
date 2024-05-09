@@ -6,6 +6,8 @@ const userController = {
     // Kullanıcı oluşturma
     async createUser(req, res, next) {
         const { name, email, password, isSystemAdmin } = req.body;
+        console.log(req.body)
+        console.log(req.params);
         try {
             const newUser = await userService.createUser(name, email, password, isSystemAdmin);
             res.status(201).json(newUser);

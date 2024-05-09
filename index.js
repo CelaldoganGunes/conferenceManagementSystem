@@ -9,7 +9,11 @@ const reviewRoutes = require('./route/reviewRoute');
 
 const app = express();
 
+app.set('view engine', 'ejs');
+
+
 app.use(express.json());
+app.use(express.urlencoded());
 
 // MongoDB bağlantısı
 mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
@@ -29,6 +33,16 @@ app.use('/review', reviewRoutes);
 app.get('/', (req, res) => {
     res.send('Ana sayfa');
 });
+
+app.get('/login', (req, res) => {
+    res.render('login'); // login.ejs dosyasını render et
+});
+
+// GET request ile register sayfasını göster
+app.get('/register', (req, res) => {
+    res.render('register'); // register.ejs dosyasını render et
+});
+
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
