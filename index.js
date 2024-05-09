@@ -42,6 +42,10 @@ app.get('/', (req, res) => {
     {
         return res.redirect('/login');
     }
+    else
+    {
+        return res.redirect('/tum_konferanslar');
+    } 
 });
 
 app.get('/login', (req, res) => {

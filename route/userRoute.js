@@ -4,6 +4,8 @@ const UserController = require('../controller/userController');
 
 // Kullanıcı oluşturma
 router.post('/create', UserController.createUser);
+router.get('/login',UserController.login);
+
 
 // Tüm kullanıcıları getirme
 router.get('/', UserController.getUsers);
@@ -21,5 +23,7 @@ router.patch('/:userId', UserController.updateUser);
 
 // Kullanıcıyı silme
 router.delete('/:userId', UserController.deleteUser);
+
+
 
 module.exports = router;

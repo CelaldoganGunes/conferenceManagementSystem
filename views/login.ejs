@@ -28,7 +28,7 @@
                 password: document.getElementById('password').value
             };
 
-            fetch(`/user/email/${formData.email}`, {
+            fetch(`/user/login?email=${formData.email}&password=${formData.password}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +44,7 @@
             })
             .then(data => {
                 alert('Giriş başarılı! Hoşgeldin, ' + data.name);
-                window.location.href = '/user_dashboard'; // Başarılı girişten sonra dashboard sayfasına yönlendir
+                window.location.href = '/tum_konferanslar'; // Başarılı girişten sonra dashboard sayfasına yönlendir
             })
             .catch(error => {
                 console.error('Giriş sırasında bir hata oluştu:', error);

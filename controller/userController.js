@@ -27,7 +27,6 @@ const userController = {
     },
     async getConferencesByAttendeeId(req, res, next)
     {
-        console.log("anasikem")
         const attendeeId = req.body.userId;
         console.log(attendeeId);
         try {
@@ -80,7 +79,6 @@ const userController = {
         }
     },
 
-
     // Kullanıcıyı güncelleme
     async updateUser(req, res, next) {
         const userId = req.params.userId;
@@ -105,7 +103,38 @@ const userController = {
         } catch (error) {
             next(error);
         }
-    }
+    },
+
+    /////////////
+    /////////////
+    /////////////    
+    /////////////
+    /////////////
+    /////////////
+
+    async login(req,res,next){
+        const email = req.query.email;
+        const password = req.query.password;
+        try {
+            const user = await userService.login(email, password);
+
+            if (user) {
+                // Kullanıcı doğrulandı, session'a kullanıcı bilgilerini kaydet
+                req.session.isLoggedIn = true;
+                req.session.user = user;
+                //res.redirect('/tum_konferanslar');
+            } else {
+                //res.redirect('/login');
+            }            
+            res.status(200).json(user);
+        } catch (error) {
+            next(error);
+        }       
+
+    }    
+    
 };
+
+
 
 module.exports = userController;
