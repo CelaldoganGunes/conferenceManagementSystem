@@ -79,7 +79,7 @@
                     <p>Adres: <%= conference.address %></p>
 
                     <% if (!conference.attendeeList.get(user._id)) { %>
-                        <button onclick="katil('<%= conference._id %>')">Katıl</button>
+                        <button onclick="katil('<%= conference._id %>', '<%= user._id %>')">Katıl</button>
                     <% } %>
                 </div>
             <% }); %>
@@ -87,13 +87,15 @@
     </main>
 
     <script>
-        function katil(conferenceId) {
-            fetch('/katil', {
-                method: 'POST',
+        function katil(conferenceId, userId) {
+            console.log(conferenceId)
+            console.log(userId)
+            fetch(`/conference/${conferenceId}/user/${userId}/role/1`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ conferenceId: conference_Id, userId: user._id, role: 1 })
+                body: JSON.stringify({  })
             })
             .then(response => {
                 if (!response.ok) {
