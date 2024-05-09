@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Makale Oluştur</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <h1>Makale Oluştur</h1>
+    <form action="/paper/create" method="POST">
+        <div>
+            <label for="title">Başlık:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+        <div>
+            <label for="abstract">Özet:</label>
+            <textarea id="abstract" name="abstract" required></textarea>
+        </div>
+        <div>
+            <label for="keywords">Anahtar Kelimeler:</label>
+            <input type="text" id="keywords" name="keywords" required>
+        </div>
+        <div>
+            <label for="conferenceId">Konferans:</label>
+            <select id="conferenceId" name="conferenceId" required>
+                <option value="">Konferans Seçin</option>
+                <% conferences.forEach(function(conference) { %>
+                    <option value="<%= conference._id %>"><%= conference.name %></option>
+                <% }); %>
+            </select>
+        </div>
+        <div>
+            <button type="submit">Makaleyi Oluştur</button>
+        </div>
+    </form>
+</body>
+</html>

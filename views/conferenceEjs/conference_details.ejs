@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konferans Detayları</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Stil dosyası yolu -->
+</head>
+<body>
+    <h1>Konferans Detayları</h1>
+    <div>
+        <h2><%= conference.name %></h2>
+        <p><strong>Adres:</strong> <%= conference.address %></p>
+        <p><strong>Başlangıç Tarihi:</strong> <%= new Date(conference.startDate).toLocaleDateString() %></p>
+        <p><strong>Bitiş Tarihi:</strong> <%= new Date(conference.endDate).toLocaleDateString() %></p>
+        <p><strong>Katılımcı Sınırı:</strong> <%= conference.attendeeLimit %></p>
+        <p><strong>Konferans Açıklaması:</strong> <%= conference.description %></p>
+    </div>
+
+    <!-- Düzenleme ve silme işlemleri için bağlantılar -->
+    <a href="/conference/edit/<%= conference._id %>">Düzenle</a>
+    <a href="/conference/delete/<%= conference._id %>" onclick="return confirm('Bu konferansı silmek istediğinize emin misiniz?');">Sil</a>
+</body>
+</html>

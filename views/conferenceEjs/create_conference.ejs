@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Konferans Oluştur</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Stil dosyası yolunuz -->
+</head>
+<body>
+    <h1>Yeni Konferans Oluştur</h1>
+    <form id="createConferenceForm" action="/conference/create" method="POST">
+        <div>
+            <label for="name">Konferans Adı:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div>
+            <label for="address">Adres:</label>
+            <input type="text" id="address" name="address" required>
+        </div>
+        <div>
+            <label for="startDate">Başlangıç Tarihi:</label>
+            <input type="date" id="startDate" name="startDate" required>
+        </div>
+        <div>
+            <label for="endDate">Bitiş Tarihi:</label>
+            <input type="date" id="endDate" name="endDate" required>
+        </div>
+        <div>
+            <label for="attendeeLimit">Katılımcı Sınırı:</label>
+            <input type="number" id="attendeeLimit" name="attendeeLimit" required>
+        </div>
+        <button type="submit">Konferans Oluştur</button>
+    </form>
+</body>
+</html>

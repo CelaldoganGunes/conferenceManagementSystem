@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Makaleler</title>
+    <link rel="stylesheet" href="/css/styles.css"> <!-- Stil dosyası yolu -->
+</head>
+<body>
+    <h1>Makale Listesi</h1>
+    <a href="/create-paper">Yeni Makale Ekle</a>
+    <table>
+        <thead>
+            <tr>
+                <th>Makale Başlığı</th>
+                <th>Yazar(lar)</th>
+                <th>Özet</th>
+                <th>Anahtar Kelimeler</th>
+                <th>İşlemler</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% papers.forEach(function(paper) { %>
+                <tr>
+                    <td><%= paper.title %></td>
+                    <td><%= paper.author %></td>
+                    <td><%= paper.abstract %></td>
+                    <td><%= paper.keywords.join(', ') %></td>
+                    <td>
+                        <a href="/paper/details/<%= paper._id %>">Detaylar</a>
+                        <a href="/paper/edit/<%= paper._id %>">Düzenle</a>
+                        <a href="/paper/delete/<%= paper._id %>" onclick="return confirm('Bu makaleyi silmek istediğinize emin misiniz?');">Sil</a>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

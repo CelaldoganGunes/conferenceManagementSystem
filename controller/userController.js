@@ -68,6 +68,7 @@ const userController = {
     // E-posta ile kullanıcıyı getirme
     async getUserByEmail(req, res, next) {
         const email = req.params.email;
+        console.log(email)
         try {
             const user = await userService.getUserByEmail(email);
             if (!user) {
