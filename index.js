@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const session = require('express-session');
 
 const userRoutes = require('./route/userRoute');
 const paperRoutes = require('./route/paperRoute');
@@ -14,6 +15,12 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(session({
+    secret: 'mysecret',
+    resave: false,
+    saveUninitialized: true
+}));
+
 
 // MongoDB bağlantısı
 mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
@@ -31,7 +38,10 @@ app.use('/review', reviewRoutes);
 
 // Ana sayfa
 app.get('/', (req, res) => {
-    res.send('Ana sayfa');
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
 });
 
 app.get('/login', (req, res) => {
@@ -52,6 +62,14 @@ app.get('/tum_konferanslar', async (req, res) => {
     res.render('tum_konferanslar', { conferences });
 });
 
+
+app.get('/kullanicinin_konferanslari', async (req, res) => {
+    let conferenceService = require('./service/conferenceService');
+    const conferences = await conferenceService.getConferenceById();
+    console.log(conferences);
+    
+    res.render('tum_konferanslar', { conferences });
+});
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
