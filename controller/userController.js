@@ -10,7 +10,15 @@ const userController = {
         console.log(req.params);
         try {
             const newUser = await userService.createUser(name, email, password, isSystemAdmin);
-            res.status(201).json(newUser);
+            if (newUser)
+            {
+                return res.redirect("/login");
+            }
+            else
+            {
+                return res.redirect("/register");
+            }
+            //res.status(201).json(newUser);
         } catch (error) {
             next(error);
         }
@@ -124,7 +132,7 @@ const userController = {
                 return res.redirect('/tum_konferanslar');
             } else {
                 return res.redirect('/login');
-            }            
+            }
 
         } catch (error) {
             next(error);

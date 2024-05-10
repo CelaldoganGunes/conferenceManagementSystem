@@ -8,7 +8,7 @@
 <body>
     
     <h1>Kayıt Formu</h1>
-    <form id="registerForm">
+    <form id="registerForm" action="/user/create" method="POST">
         <div>
             <label for="name">Adınız:</label>
             <input type="text" id="name" name="name" required>
@@ -21,36 +21,8 @@
             <label for="password">Şifre:</label>
             <input type="password" id="password" name="password" required>
         </div>
+        <input type="hidden" name="isSystemAdmin" value="false">
         <button type="submit">Kayıt Ol</button>
     </form>
-
-    <script>
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const formData = {
-                name: document.getElementById('name').value,
-                email: document.getElementById('email').value,
-                password: document.getElementById('password').value,
-                isSystemAdmin: false
-            };
-
-            fetch('/user/create', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Kayıt başarılı! Hoşgeldin, ' + data.name);
-                window.location.href = '/login'; // Başarılı kayıttan sonra giriş sayfasına yönlendir
-            })
-            .catch(error => {
-                console.error('Kayıt sırasında bir hata oluştu:', error);
-                alert('Kayıt başarısız.');
-            });
-        });
-    </script>
 </body>
 </html>

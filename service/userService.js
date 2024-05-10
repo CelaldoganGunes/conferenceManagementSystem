@@ -4,6 +4,8 @@ const userService = {
     // Kullanıcı oluşturma
     async createUser(name, email, password, isSystemAdmin) {
         try {
+            if(this.getUserByEmail(email))
+                return null;
             const newUser = new User({
                 name,
                 email,
@@ -85,8 +87,6 @@ const userService = {
     /////////////
     /////////////
     /////////////
-
-
 };
 
 module.exports = userService;
