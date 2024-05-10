@@ -53,6 +53,17 @@ app.get('/register', (req, res) => {
     res.render('register'); // register.ejs dosyasını render et
 });
 
+app.get('/cikis', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Oturum sonlandırma hatası:', err);
+            res.status(500).send('Oturum sonlandırma hatası');
+        } else {
+            // Kullanıcıyı giriş sayfasına yönlendir
+            res.redirect('/login'); // Örnek: Giriş sayfasının adresi
+        }
+    });
+});
 
 app.get('/tum_konferanslar', async (req, res) => {
     if (req.session.isLoggedIn != true)
