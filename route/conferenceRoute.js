@@ -18,7 +18,7 @@ router.get('/creator/:creatorId', ConferenceController.getConferencesByCreatorId
 router.get('/:conferenceId/user/:userId/role', ConferenceController.getRoleByUserId);
 
 // Kullanıcı ID'sine göre rol ayarlama
-router.get('/:conferenceId/user/:userId/role/:role', ConferenceController.setRoleByUserId);
+router.get('/:conferenceId/user/:userId/role/:role/:isAdmin', ConferenceController.setRoleByUserId);
 
 // Konferansı güncelleme
 router.put('/:conferenceId', ConferenceController.updateConference);

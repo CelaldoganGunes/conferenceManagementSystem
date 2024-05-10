@@ -60,14 +60,21 @@ const ConferenceController = {
 
     // Kullanıcı ID'sine göre rol ayarlama
     async setRoleByUserId(req, res, next) {
-        const { conferenceId, userId, role } = req.params;
+        const { conferenceId, userId, role, isAdmin } = req.params;
         try {
-            await conferenceService.setRoleByUserId(conferenceId, userId, role);
-            res.status(200).json({ message: 'Rol başarıyla ayarlandı' });
-        } catch (error) {
+            console.log(isAdmin)
+            let isCompleted = await conferenceService.setRoleByUserId(conferenceId, userId, role);  
+            if(isAdmin == 1)
+                res.status(200).json({ message: 'Rol başarıyla ayarlandı' });
+            else
+                res.redirect("/katildigim_konferanslar");
+        } 
+        catch (error) {
             next(error);
-            res.redirect("/").end();
         }
+                
+
+
     },
 
     // Konferansı güncelleme

@@ -94,6 +94,7 @@ async function setRoleByUserId(conferenceId, userId, role) {
         }
         conference.attendeeList.set(userId, role);
         await updateConference(conferenceId, conference);
+        return true;
     } catch (error) {
         throw new Error(`Katılma durumu ayarlanamadı: ${error.message}`);
     }

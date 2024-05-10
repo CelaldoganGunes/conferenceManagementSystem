@@ -79,40 +79,13 @@
                     <p>Adres: <%= conference.address %></p>
 
                     <% if (!conference.attendeeList.get(user._id)) { %>
-                        <form action="/conference/<%= conference._id %>/user/<%= user._id %>/role/1" method="GET">
-                            <input class="submit" type="submit" placeholder="LOGIN" value="PUT">
+                        <form action="/conference/<%= conference._id %>/user/<%= user._id %>/role/1/0" method="GET">
+                            <input class="submit" type="submit" placeholder="LOGIN" value="Attend">
                         </form>
                     <% } %>
                 </div>
             <% }); %>
         </div>
     </main>
-
-    <script>
-        function katil(conferenceId, userId) {
-            console.log(conferenceId)
-            console.log(userId)
-            fetch(`/conference/${conferenceId}/user/${userId}/role/1`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({  })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Servis çağrısı başarısız!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                // Gerekirse başka işlemler yapabilirsiniz
-            })
-            .catch(error => {
-                console.error('Hata:', error);
-            });
-        }
-    </script>
 </body>
 </html>
