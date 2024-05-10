@@ -45,7 +45,7 @@
     </header>
 
     <h1>Yeni Konferans Oluştur</h1>
-    <form action="/confence/create" method="POST">
+    <form action="/conference/create" method="POST">
         <div>
             <label for="name">Konferans Adı:</label>
             <input type="text" id="name" name="name" required>
@@ -71,7 +71,7 @@
             
         </div>
 
-        <input type="hidden" name="attendeeList" value="<%= JSON.stringify({}) %>">
+        <input type="hidden" name="attendeeList" value="default">
         <input type="hidden" name="creatorId" value="<%= user._id %>">
 
 

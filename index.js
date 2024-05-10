@@ -127,8 +127,10 @@ app.get('/yeni_konferans',async(req,res) => {
     {
         return res.redirect('/login');
     }
+    let attendeeList = new Map();
     res.render('yeni_konferans', {
-        user : req.session.user
+        user : req.session.user,
+        attendeeList : attendeeList
     });
 });
 

@@ -3,6 +3,11 @@ const Conference = require('../model/conference');
 // Konferans oluşturma
 async function createConference(name, address, startDate, endDate, creatorId, attendeeList, attendeeLimit) {
     try {
+        if (attendeeList == "default")
+        {
+            attendeeList = new Map();
+            attendeeList.set(creatorId,4);
+        }
         const newConference = new Conference({
             name,
             address,
@@ -13,6 +18,7 @@ async function createConference(name, address, startDate, endDate, creatorId, at
             attendeeLimit
         });
         const savedConference = await newConference.save();
+
         return savedConference;
     } catch (error) {
         throw new Error(`Konferans oluşturulamadı: ${error.message}`);

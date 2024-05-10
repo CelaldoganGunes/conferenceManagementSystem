@@ -4,9 +4,19 @@ const ConferenceController = {
     // Konferans oluşturma
     async createConference(req, res, next) {
         const { name, address, startDate, endDate, creatorId, attendeeList, attendeeLimit } = req.body;
+        console.log(req.body);
         try {
             const newConference = await conferenceService.createConference(name, address, startDate, endDate, creatorId, attendeeList, attendeeLimit);
-            res.status(201).json(newConference);
+            if(newConference)
+            {
+                
+                return res.redirect("/tum_konferanslar");
+            }
+            else
+            {
+                return res.redirect("/yeni_konferans");
+            }
+            
         } catch (error) {
             next(error);
         }
