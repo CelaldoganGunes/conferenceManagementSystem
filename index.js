@@ -54,6 +54,10 @@ app.get('/register', (req, res) => {
 });
 
 app.get('/cikis', (req, res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
     req.session.destroy((err) => {
         if (err) {
             console.error('Oturum sonlandırma hatası:', err);
@@ -117,6 +121,17 @@ app.get('/yazi_yukle',async(req,res) => {
     }
     res.send("anasikim");
 });
+
+app.get('/yeni_konferans',async(req,res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+    res.render('yeni_konferans', {
+        user : req.session.user
+    });
+});
+
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
