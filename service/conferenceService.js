@@ -47,6 +47,27 @@ async function getConferencesByCreatorId(creatorId) {
     } catch (error) {
         throw new Error(`Oluşturucuya ait konferanslar getirilemedi: ${error.message}`);
     }
+
+}
+
+async function getConferencesByAttendeeId(attendeeId){
+    try {
+        const conferences = await getConferences();
+        if (!conferences) {
+            throw new Error("konferans yok");
+        }
+        
+        let conferencesTheUserAttended = [];
+        conferences.forEach(element => {
+            if(element.attendeeList.get(attendeeId))
+            {
+                conferencesTheUserAttended.push(element);
+            }
+        });
+        return conferencesTheUserAttended;
+    } catch (error) {
+        throw new Error(`${attendeeId} ait konferanslar getirilemedi: ${error.message}`);
+    }
 }
 
 
@@ -105,5 +126,6 @@ module.exports = {
     getRoleByUserId,
     setRoleByUserId,
     updateConference,
-    deleteConference
+    deleteConference,
+    getConferencesByAttendeeId
 };

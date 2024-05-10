@@ -57,7 +57,6 @@ app.get('/register', (req, res) => {
 app.get('/tum_konferanslar', async (req, res) => {
     let conferenceService = require('./service/conferenceService');
     const conferences = await conferenceService.getConferences();
-    console.log(conferences);
     
     res.render('tum_konferanslar', { 
         conferences : conferences ,
@@ -69,22 +68,10 @@ app.get('/tum_konferanslar', async (req, res) => {
 app.get('/katildigim_konferanslar', async (req, res) => {
     let conferenceService = require('./service/conferenceService');
     const attendeeId = req.session.user._id;
-    console.log(attendeeId);
-    const conferences = await conferenceService.getConferences();
-    if (!conferences) {
-        throw new Error("konferans yok");
-    }
-    
-    let conferencesOfTheUser = [];
-    conferences.forEach(element => {
-        if(element.attendeeList.get(attendeeId))
-        {
-            conferencesOfTheUser.push(element);
-        }
-    });
+    const conferencesTheUserAttended = await conferenceService.getConferencesByAttendeeId(attendeeId);
 
     res.render('katildigim_konferanslar', { 
-        conferences : conferencesOfTheUser ,
+        conferences : conferencesTheUserAttended ,
         user : req.session.user
     });
 });
