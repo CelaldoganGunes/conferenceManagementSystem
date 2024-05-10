@@ -79,7 +79,9 @@
                     <p>Adres: <%= conference.address %></p>
 
                     <% if (!conference.attendeeList.get(user._id)) { %>
-                        <button onclick="katil('<%= conference._id %>', '<%= user._id %>')">Katıl</button>
+                        <form action="/conference/<%= conference._id %>/user/<%= user._id %>/role/1" method="GET">
+                            <input class="submit" type="submit" placeholder="LOGIN" value="PUT">
+                        </form>
                     <% } %>
                 </div>
             <% }); %>

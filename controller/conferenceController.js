@@ -66,6 +66,7 @@ const ConferenceController = {
             res.status(200).json({ message: 'Rol başarıyla ayarlandı' });
         } catch (error) {
             next(error);
+            res.redirect("/").end();
         }
     },
 

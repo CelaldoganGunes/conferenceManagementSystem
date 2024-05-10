@@ -30,9 +30,7 @@ const userService = {
     async login(email, password) {
         try {
             const user = await User.findOne({ email: email});
-            console.log(email);
-            console.log(user);
-            if (user.password = password)
+            if (user && user.password == password)
             {
                 return user;
             }    

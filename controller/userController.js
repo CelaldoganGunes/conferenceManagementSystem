@@ -113,20 +113,19 @@ const userController = {
     /////////////
 
     async login(req,res,next){
-        const email = req.query.email;
-        const password = req.query.password;
+        const email = req.body.email;
+        const password = req.body.password;
         try {
             const user = await userService.login(email, password);
-
             if (user) {
                 // Kullanıcı doğrulandı, session'a kullanıcı bilgilerini kaydet
                 req.session.isLoggedIn = true;
                 req.session.user = user;
-                //res.redirect('/tum_konferanslar');
+                return res.redirect('/tum_konferanslar');
             } else {
-                //res.redirect('/login');
+                return res.redirect('/login');
             }            
-            res.status(200).json(user);
+
         } catch (error) {
             next(error);
         }       

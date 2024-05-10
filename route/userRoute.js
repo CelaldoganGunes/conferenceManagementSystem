@@ -4,7 +4,7 @@ const UserController = require('../controller/userController');
 
 // Kullanıcı oluşturma
 router.post('/create', UserController.createUser);
-router.get('/login',UserController.login);
+router.post('/login',UserController.login);
 
 
 // Tüm kullanıcıları getirme
