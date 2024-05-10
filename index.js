@@ -99,6 +99,14 @@ app.get('/yazilarim', async(req,res) => {
     });
 });
 
+app.get('/yazi_yukle',async(req,res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+    res.send("anasikim");
+});
+
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
     console.log(`Server started on port ${PORT}`);
