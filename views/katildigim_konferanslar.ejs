@@ -61,7 +61,7 @@
                 <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
                 <li><a href="/katildigim_konferanslar">Katıldığım Konferanslar</a></li>
                 <li><a href="#">Oluşturduğum Konferanslar</a></li>
-                <li><a href="#">Yazılarım</a></li>
+                <li><a href="/yazilarim">Yazılarım</a></li>
                 <li><a href="#">İncelemelerim</a></li>
             </ul>
         </nav>
@@ -77,40 +77,9 @@
                     <p>Başlangıç Tarihi: <%= conference.startDate %></p>
                     <p>Bitiş Tarihi: <%= conference.endDate %></p>
                     <p>Adres: <%= conference.address %></p>
-
-                    <% if (!conference.attendeeList.get(user._id)) { %>
-                        <button onclick="katil('<%= conference._id %>', '<%= user._id %>')">Katıl</button>
-                    <% } %>
                 </div>
             <% }); %>
         </div>
     </main>
-
-    <script>
-        function katil(conferenceId, userId) {
-            console.log(conferenceId)
-            console.log(userId)
-            fetch(`/conference/${conferenceId}/user/${userId}/role/1`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({  })
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Servis çağrısı başarısız!');
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-                // Gerekirse başka işlemler yapabilirsiniz
-            })
-            .catch(error => {
-                console.error('Hata:', error);
-            });
-        }
-    </script>
 </body>
 </html>
