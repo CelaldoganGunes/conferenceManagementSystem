@@ -55,6 +55,11 @@ app.get('/register', (req, res) => {
 
 
 app.get('/tum_konferanslar', async (req, res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+
     let conferenceService = require('./service/conferenceService');
     const conferences = await conferenceService.getConferences();
     
@@ -66,12 +71,30 @@ app.get('/tum_konferanslar', async (req, res) => {
 
 
 app.get('/katildigim_konferanslar', async (req, res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
     let conferenceService = require('./service/conferenceService');
     const attendeeId = req.session.user._id;
     const conferencesTheUserAttended = await conferenceService.getConferencesByAttendeeId(attendeeId);
 
     res.render('katildigim_konferanslar', { 
         conferences : conferencesTheUserAttended ,
+        user : req.session.user
+    });
+});
+
+app.get('/yazilarim', async(req,res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+    let paperService = require('./service/paperService');
+    const papers = await paperService.getPapersByCreatorId(req.session.user._id);
+    //console.log(papers);
+    res.render('yazilarim', { 
+        papers : papers,
         user : req.session.user
     });
 });

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tüm Konferanslar</title>
+    <title>Yazılarım</title>
     <style>
         header {
             background-color: #f8f9fa;
@@ -68,24 +68,43 @@
     </header>
     
     <main>
-        <h1>Tüm Konferanslar</h1>
+        <h1>Yazılarım</h1>
         <div class="conference-grid">
-            <% conferences.forEach(conference => { %>
+            <% papers.forEach(paper => { %>
                 <div class="conference-item">
-                    <h2><%= conference.name %></h2>
-                    <p>ID: <%= conference._id %></p>
-                    <p>Başlangıç Tarihi: <%= conference.startDate %></p>
-                    <p>Bitiş Tarihi: <%= conference.endDate %></p>
-                    <p>Adres: <%= conference.address %></p>
-
-                    <% if (!conference.attendeeList.get(user._id)) { %>
-                        <form action="/conference/<%= conference._id %>/user/<%= user._id %>/role/1/0" method="GET">
-                            <input class="submit" type="submit" placeholder="LOGIN" value="Attend">
-                        </form>
+                    <h2><%= paper.title %></h2>
+                    <p>ID: <%= paper._id %></p>
+                    <% if (paper.conferenceId) { %>
+                        <p id="conferenceName_<%= paper._id %>">Konferans Adı: Yükleniyor...</p>
                     <% } %>
+                    <p>Özet: <%= paper.abstract %></p>
+                    <p>Anahtar Kelimeler 31: <%= paper.keywords %></p>
                 </div>
             <% }); %>
         </div>
     </main>
+    
+    <script>
+        async function getConference(conferenceId, elementId) {
+            try {
+                const response = await fetch(`/conference/${conferenceId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById(elementId).innerText = "Konferans Adı: " + data.name;
+                } else {
+                    throw new Error('Konferans bulunamadı.');
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
+    
+        // Her bir paper için konferans adını getir
+        <% papers.forEach(paper => { %>
+            <% if (paper.conferenceId) { %>
+                getConference('<%= paper.conferenceId %>', 'conferenceName_<%= paper._id %>');
+            <% } %>
+        <% }); %>
+    </script>
 </body>
 </html>
