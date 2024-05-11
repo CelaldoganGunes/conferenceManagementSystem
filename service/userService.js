@@ -4,8 +4,12 @@ const userService = {
     // Kullanıcı oluşturma
     async createUser(name, email, password, isSystemAdmin) {
         try {
-            if(this.getUserByEmail(email))
+            let isUserExist = await this.getUserByEmail(email);
+
+            if(isUserExist)
+            {
                 return null;
+            }
             const newUser = new User({
                 name,
                 email,
