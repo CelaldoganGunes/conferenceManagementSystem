@@ -149,13 +149,9 @@ app.get('/konferans_duzenle/:konferansId', async (req, res) => {
 
     for (const key of conference.keys) {
         let user = await userService.getUserById(key);
-        //console.log(user)
         conference.attendeeNameArray.push(user.name);
-      }
+    }
     
-    //console.log(conference.attendeeNameArray)
-
-    //console.log(conference);
     res.render('konferans_duzenle', { 
         conference : conference ,
         user : req.session.user
