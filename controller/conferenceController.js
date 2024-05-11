@@ -79,12 +79,12 @@ const ConferenceController = {
                 userId = req.query.attendee;
                 role = req.query.role;
                 let isCompleted = await conferenceService.setRoleByUserId(conferenceId, userId, role);  
-                res.status(200).json({ message: 'Rol başarıyla ayarlandı' });
+                return res.redirect("/konferans_duzenle/" + conferenceId);
             }
             else
             {
                 let isCompleted = await conferenceService.setRoleByUserId(conferenceId, userId, role);  
-                res.redirect("/katildigim_konferanslar");
+                return res.redirect("/katildigim_konferanslar");
             }
         } 
         catch (error) {
