@@ -78,7 +78,33 @@
 
         <button type="submit">Kaydet</button>
     </form>
-    
+
+    <h1>Katılımcıları Düzenle</h1>
+    <form id="myForm" action="/conference/<%= conference._id %>/user/<%= user._id %>/role/0/1" method="GET">
+        <div>
+            <label for="attendee">Katılımcı Seç:</label>
+            <select id="attendee" name="attendee">
+                <% if (conference.attendeeNameArray && conference.attendeeNameArray.length > 0) { %>
+                    <% for (let i = 0; i < conference.keys.length; i++) { %>
+                        <option value="<%= conference.keys[i] %>"> <%= conference.attendeeNameArray[i] %> - <%= conference.roleNames[conference.roles[i]] %> </option>
+                    <% } %>
+                <% } else { %>
+                    <option disabled selected>No attendees</option>
+                <% } %>
+            </select>
+        </div>
+        <div>
+            <label for="role">Rol Seç:</label>
+            <select id="role" name="role">
+                <option value="1">Katılımcı</option>
+                <option value="2">Reviewer</option>
+                <option value="3">Author</option>
+                <option value="4">Konferans Admini (Hocam lütfen bunu seçmeyin)</option>
+            </select>
+        </div>
+        <button type="submit">Kaydet</button>
+
+    </form>
 
 </body>
 </html>

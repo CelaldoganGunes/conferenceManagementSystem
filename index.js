@@ -138,6 +138,23 @@ app.get('/konferans_duzenle/:konferansId', async (req, res) => {
 
     conference.endDateString = conference.endDate.toISOString().split('T')[0];
     conference.startDateString = conference.startDate.toISOString().split('T')[0];
+
+    conference.keys = Array.from( conference.attendeeList.keys() );
+    conference.roles = Array.from( conference.attendeeList.values() );
+
+    conference.roleNames = ["", "Attendee" , "Reviewer", "Author", "Conf Admin"];
+
+    let userService = require('./service/userService');
+    conference.attendeeNameArray = [];
+
+    for (const key of conference.keys) {
+        let user = await userService.getUserById(key);
+        //console.log(user)
+        conference.attendeeNameArray.push(user.name);
+      }
+    
+    //console.log(conference.attendeeNameArray)
+
     //console.log(conference);
     res.render('konferans_duzenle', { 
         conference : conference ,
