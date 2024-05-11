@@ -21,7 +21,7 @@ router.get('/:conferenceId/user/:userId/role', ConferenceController.getRoleByUse
 router.get('/:conferenceId/user/:userId/role/:role/:isAdmin', ConferenceController.setRoleByUserId);
 
 // Konferansı güncelleme
-router.put('/:conferenceId', ConferenceController.updateConference);
+router.post('/update/:conferenceId', ConferenceController.updateConference);
 
 // Konferansı silme
 router.delete('/:conferenceId', ConferenceController.deleteConference);

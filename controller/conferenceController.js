@@ -91,6 +91,7 @@ const ConferenceController = {
     async updateConference(req, res, next) {
         const conferenceId = req.params.conferenceId;
         const newData = req.body;
+        console.log(newData);
         try {
             const updatedConference = await conferenceService.updateConference(conferenceId, newData);
             if (!updatedConference) {

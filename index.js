@@ -84,6 +84,17 @@ app.get('/tum_konferanslar', async (req, res) => {
     });
 });
 
+app.get('/yeni_konferans',async(req,res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+    let attendeeList = new Map();
+    res.render('yeni_konferans', {
+        user : req.session.user,
+        attendeeList : attendeeList
+    });
+});
 
 app.get('/katildigim_konferanslar', async (req, res) => {
     if (req.session.isLoggedIn != true)
@@ -96,6 +107,40 @@ app.get('/katildigim_konferanslar', async (req, res) => {
 
     res.render('katildigim_konferanslar', { 
         conferences : conferencesTheUserAttended ,
+        user : req.session.user
+    });
+});
+
+app.get('/olusturdugum_konferanslar', async (req, res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+    let conferenceService = require('./service/conferenceService');
+    const attendeeId = req.session.user._id;
+    const conferencesTheUserCreated = await conferenceService.getConferencesByCreatorId(attendeeId);
+
+    res.render('olusturdugum_konferanslar', { 
+        conferences : conferencesTheUserCreated ,
+        user : req.session.user
+    });
+});
+
+app.get('/konferans_duzenle/:konferansId', async (req, res) => {
+    if (req.session.isLoggedIn != true)
+    {
+        return res.redirect('/login');
+    }
+    let conferenceService = require('./service/conferenceService');
+    const attendeeId = req.session.user._id;
+    const konferansId = req.params.konferansId;
+    const conference = await conferenceService.getConferenceById(konferansId);
+
+    conference.endDateString = conference.endDate.toISOString().split('T')[0];
+    conference.startDateString = conference.startDate.toISOString().split('T')[0];
+    //console.log(conference);
+    res.render('konferans_duzenle', { 
+        conference : conference ,
         user : req.session.user
     });
 });
@@ -122,17 +167,7 @@ app.get('/yazi_yukle',async(req,res) => {
     res.send("anasikim");
 });
 
-app.get('/yeni_konferans',async(req,res) => {
-    if (req.session.isLoggedIn != true)
-    {
-        return res.redirect('/login');
-    }
-    let attendeeList = new Map();
-    res.render('yeni_konferans', {
-        user : req.session.user,
-        attendeeList : attendeeList
-    });
-});
+
 
 
 const PORT = process.env.PORT || 80;

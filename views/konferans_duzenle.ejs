@@ -44,38 +44,39 @@
         </nav>
     </header>
 
-    <h1>Yeni Konferans Oluştur</h1>
-    <form action="/conference/create" method="POST">
+    <h1>Konferans Düzenle</h1>
+    <form action="/conference/update/<%= conference._id %>" method="POST">
         <div>
             <label for="name">Konferans Adı:</label>
-            <input type="text" id="name" name="name" required>
+            <input type="text" id="name" name="name" value="<%= conference.name %>" required>
         </div>
         <div>
             <label for="address">Adres:</label>
-            <input type="text" id="address" name="address" required>
+            <input type="text" id="address" name="address" value="<%= conference.address %>" required>
         </div><div>
             <label for="startDate">Başlangıç Tarihi:</label>
-            <input type="date" id="startDate" name="startDate" required>
+            <input type="date" id="startDate" name="startDate" value="<%= conference.startDateString %>" required>
         </div>
         <div>
-            <label for="endDate">Bitiş Tarihi:</label>
-            <input type="date" id="endDate" name="endDate" required>
+            <label for="endDate">Bitiş Tarihi: </label>
+            <input type="date" id="endDate" name="endDate" value="<%= conference.endDateString %>" required>
         </div>
         <div>
             <label for="attendeeLimit">Maksimum Katılımcı Limiti:</label>
-            <select id="attendeeLimit" name="attendeeLimit" required>
+            <select id="attendeeLimit" value="<%= conference.attendeeLimit %>" name="attendeeLimit" required>
                 <% for (let i = 50; i <= 100; i++) { %>
-                    <option value="<%= i %>"><%= i %></option>
+                    <% if (i === conference.attendeeLimit) { %>
+                        <option value="<%= i %>" selected><%= i %></option>
+                    <% } else { %>
+                        <option value="<%= i %>"><%= i %></option>
+                    <% } %>
                 <% } %>
             </select>
             
         </div>
 
-        <input type="hidden" name="attendeeList" value="default">
-        <input type="hidden" name="creatorId" value="<%= user._id %>">
 
-
-        <button type="submit">Konferans Oluştur</button>
+        <button type="submit">Kaydet</button>
     </form>
     
 
