@@ -70,13 +70,13 @@
     
     <main>
         <h1>İncelemelerim</h1>
-        <button onclick="window.location.href='/inceleme_ekle/<%= review._id %>'">İnceleme Ekle</button>
         <div class="conference-grid">
             <% reviews.forEach(review => { %>
                 <div class="conference-item">
                     <h2><%= review.reviewerId %></h2>
-                    <p>ID: <%= review.paperId %></p>
+                    <p>Yazı: <%= review.paper.paperId %></p>
                     <p>feedback: <%= review.feedback %></p>
+                    <button onclick="window.location.href='/inceleme_ekle/<%= review._id %>'">İnceleme Ekle</button>
                 </div>
             <% }); %>
         </div>

@@ -188,11 +188,11 @@ app.get('/incelemelerim', async(req,res) => {
         }
         const reviewService = require('./service/reviewService');
         const paperService = require('./service/paperService');
-
         const reviews = await reviewService.getPaperByReviewerId(req.session.user._id);
-        reviews.forEach(async(review) =>{
+
+        for (const review of reviews) {
             review.paper = await paperService.getPaperById(review.paperId);
-        });
+        }
         res.render("incelemelerim",{
             reviews:reviews,
             user : req.session.user
