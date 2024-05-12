@@ -3,7 +3,7 @@ const reviewService = require('../service/reviewService');
 const conferenceService = require('../service/conferenceService');
 
 // Makale oluşturma
-async function createPaper(creatorId, conferenceId, title, abstract, keywords) {
+async function createPaper(creatorId, conferenceId, title, abstract, keywords, file) {
     try {
         const newPaper = new Paper({
             creatorId,
@@ -13,7 +13,7 @@ async function createPaper(creatorId, conferenceId, title, abstract, keywords) {
             keywords
         });
         const savedPaper = await newPaper.save();
-        
+
         // Reviewer'ları belirle
         
         const reviewerList = [];

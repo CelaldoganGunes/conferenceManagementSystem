@@ -80,7 +80,9 @@
                         <p id="conferenceName_<%= paper._id %>">Konferans Adı: Yükleniyor...</p>
                     <% } %>
                     <p>Özet: <%= paper.abstract %></p>
-                    <p>Anahtar Kelimeler 31: <%= paper.keywords %></p>
+                    <p>Anahtar Kelimeler: <%= paper.keywords %></p>
+                    <p>Reviewer Rate: <%= paper.review.rate %></p>
+                    <p>Reviewer Feedback: <%= paper.review.feedback %></p>
                 </div>
             <% }); %>
         </div>

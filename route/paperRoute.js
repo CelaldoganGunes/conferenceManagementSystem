@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const paperController = require('../controller/paperController');
 
+
+
 router.get('/', paperController.getPapers);
 router.post('/', paperController.createPaper);
 router.get('/creator/:creatorId', paperController.getPapersByCreatorId);

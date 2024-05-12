@@ -166,6 +166,14 @@ app.get('/yazilarim', async(req,res) => {
     }
     let paperService = require('./service/paperService');
     const papers = await paperService.getPapersByCreatorId(req.session.user._id);
+    const reviewService = require('./service/reviewService');
+    
+    for (const paper of papers) {
+        let a = await reviewService.getReviewsByPaperId(paper._id);
+        //console.log(a);
+        //console.log(typeof a);
+        paper.review = a[0];
+    }
     //console.log(papers);
     res.render('yazilarim', { 
         papers : papers,
@@ -217,7 +225,13 @@ app.get('/inceleme_ekle/:reviewId',async (req,res) => {
     const paperService = require('./service/paperService');    
     const review = await reviewService.getReviewById(req.params.reviewId);
     res.render("inceleme_ekle",{})
+}),
+
+app.get('/not_implemented',(req,res)=>{
+    res.send("Bu özellik henüz eklenmedi.");
 })
+
+
 
 
 

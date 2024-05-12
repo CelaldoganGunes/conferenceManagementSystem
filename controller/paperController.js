@@ -2,9 +2,10 @@ const paperService = require('../service/paperService');
 
 const paperController = {
     async createPaper(req, res, next) {
-        const { creatorId, conferenceId, title, abstract, keywords } = req.body;
+        const { creatorId, conferenceId, title, abstract, keywords, pdffile } = req.body;
+        console.log(req.body)
         try {
-            const newPaper = await paperService.createPaper(creatorId, conferenceId, title, abstract, keywords);
+            const newPaper = await paperService.createPaper(creatorId, conferenceId, title, abstract, keywords, pdffile);
             res.status(201).json(newPaper);
         } catch (error) {
             next(error);
