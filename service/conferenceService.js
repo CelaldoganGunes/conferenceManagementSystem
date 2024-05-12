@@ -76,6 +76,26 @@ async function getConferencesByAttendeeId(attendeeId){
     }
 }
 
+async function getConferencesOfAttendeeWithRole(attendeeId, roleNumber){
+    try {
+        const conferences = await getConferences();
+        if (!conferences) {
+            throw new Error("konferans yok");
+        }
+        
+        let conferencesTheUserIsThisRole= [];
+        conferences.forEach(element => {
+            if(element.attendeeList.get(attendeeId) == roleNumber)
+            {
+                conferencesTheUserIsThisRole.push(element);
+            }
+        });
+        return conferencesTheUserIsThisRole;
+    } catch (error) {
+        throw new Error(`${attendeeId} ait konferanslar getirilemedi: ${error.message}`);
+    }
+}
+
 
 // Kullanıcı ID'sine göre rol getirme
 async function getRoleByUserId(conferenceId, userId) {
@@ -134,5 +154,6 @@ module.exports = {
     setRoleByUserId,
     updateConference,
     deleteConference,
-    getConferencesByAttendeeId
+    getConferencesByAttendeeId,
+    getConferencesOfAttendeeWithRole
 };

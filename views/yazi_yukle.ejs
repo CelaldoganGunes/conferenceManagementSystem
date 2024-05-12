@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yazı Yükle</title>
+    <style>
+        header {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
+                <li><a href="/katildigim_konferanslar">Katıldığım Konferanslar</a></li>
+                <li><a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a></li>
+                <li><a href="/yazilarim">Yazılarım</a></li>
+                <li><a href="/incelemelerim">İncelemelerim</a></li>
+                <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Yeni Yazı Yükle</h1>
+
+    <form action="/paper" method="post">
+        <div>
+            <label for="name">Konferans Adı:</label>
+            <select name="conferenceId" required>
+                <% conferences.forEach(conference => { %>
+                    <option value="<%= conference.id %>"><%= conference.name %></option>
+                <% }); %>
+            </select>
+        </div>
+
+        <div>
+            <label for="title">Paper Adı:</label>
+            <input type="text" id="title" name="title" required>
+        </div>
+
+        <div>
+            <label for="abstract">Abstract:</label>
+            <input type="text" id="abstract" name="abstract" required>
+        </div>
+
+        <div>
+            <label for="keywords">Keywords:</label>
+            <input type="text" id="keywords" name="keywords" required>
+        </div>
+
+        <div>
+            <label for="pdfFile">PDF Dosyası:</label>
+            <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required>
+        <p for="warning">Konferansta Reviewer rolünde biri yoksa hata verecektir. Otomatik atama yapıldığından dolayı böyle.</p>
+
+        </div>
+
+        <input type="hidden" name="creatorId" value="<%= user._id %>">
+
+        <button type="submit">Gönder</button>
+    </form>
+    
+</body>
+</html>

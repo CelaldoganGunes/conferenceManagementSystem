@@ -77,7 +77,7 @@ app.get('/tum_konferanslar', async (req, res) => {
 
     let conferenceService = require('./service/conferenceService');
     const conferences = await conferenceService.getConferences();
-    console.log(conferences);
+    //console.log(conferences);
     
     res.render('tum_konferanslar', { 
         conferences : conferences ,
@@ -178,25 +178,34 @@ app.get('/yazi_yukle',async(req,res) => {
     {
         return res.redirect('/login');
     }
-    res.send("anasikim");
+
+    let conferenceService = require('./service/conferenceService');
+    const attendeeId = req.session.user._id;
+    const conferencesTheUserIsAuthor = await conferenceService.getConferencesOfAttendeeWithRole(attendeeId, 3); // 3 = Author
+
+    //console.log(conferencesTheUserIsAuthor);
+    res.render("yazi_yukle",{
+        user : req.session.user,
+        conferences : conferencesTheUserIsAuthor
+    });
 });
 
 app.get('/incelemelerim', async(req,res) => {
     if (req.session.isLoggedIn != true)
-        {
-            return res.redirect('/login');
-        }
-        const reviewService = require('./service/reviewService');
-        const paperService = require('./service/paperService');
-        const reviews = await reviewService.getPaperByReviewerId(req.session.user._id);
+    {
+        return res.redirect('/login');
+    }
+    const reviewService = require('./service/reviewService');
+    const paperService = require('./service/paperService');
+    const reviews = await reviewService.getPaperByReviewerId(req.session.user._id);
 
-        for (const review of reviews) {
-            review.paper = await paperService.getPaperById(review.paperId);
-        }
-        res.render("incelemelerim",{
-            reviews:reviews,
-            user : req.session.user
-        });
+    for (const review of reviews) {
+        review.paper = await paperService.getPaperById(review.paperId);
+    }
+    res.render("incelemelerim",{
+        reviews: reviews,
+        user : req.session.user
+    });
 });
 
 app.get('/inceleme_ekle/:reviewId',async (req,res) => {
