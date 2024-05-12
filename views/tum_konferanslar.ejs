@@ -1,93 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tüm Konferanslar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        header {
-            background-color: #f8f9fa;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-        }
-        .conference-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
-            margin-top: 20px;
-        }
-        .conference-item {
-            width: 30%;
-            margin-bottom: 20px;
-            padding: 10px;
-            border: 20px solid #ccc;
-            border-radius: px;
-        }
-        .conference-item h2 {
-            margin-top: 0;
-        }
-        .conference-item button {
-            background-color: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            border-radius: 5px;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
-                <li><a href="/katildigim_konferanslar">Katıldığım Konferanslar</a></li>
-                <li><a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a></li>
-                <li><a href="/yazilarim">Yazılarım</a></li>
-                <li><a href="/incelemelerim">İncelemelerim</a></li>
-                <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
-            </ul>
-        </nav>
-    </header>
-    
-    <main>
-        <h1>Tüm Konferanslar</h1>
-        <button onclick="window.location.href='/yeni_konferans'">Yeni Konferans Oluştur</button>
-        <div class="conference-grid">
-            <% conferences.forEach(conference => { %>
-                <div class="conference-item">
-                    <h2><%= conference.name %></h2>
-                    <p>ID: <%= conference._id %></p>
-                    <p>Başlangıç Tarihi: <%= conference.startDate %></p>
-                    <p>Bitiş Tarihi: <%= conference.endDate %></p>
-                    <p>Adres: <%= conference.address %></p>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
-                    <% if (!conference.attendeeList.get(user._id)) { %>
-                        <form action="/conference/<%= conference._id %>/user/<%= user._id %>/role/1/0" method="GET">
-                            <input class="submit" type="submit" placeholder="LOGIN" value="Attend">
-                        </form>
-                    <% } %>
-                </div>
-            <% }); %>
+      body {
+        background-color: #fff7df;
+        color: rgb(65, 65, 65);
+        text-align: center;
+        font-family: "Roboto", sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        height: 2.25rem;
+        border-bottom: 1px solid rgb(227, 218, 218);
+      }
+      h1 {
+        color: #9747ff;
+      }
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      nav ul li {
+        display: inline;
+        margin-right: 10px;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #9747ff;
+        color: white;
+      }
+      nav ul li a:hover {
+        background-color: #542790;
+      }
+      .conference-starter {
+        display: block;
+        color: white;
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin: 3rem auto;
+        background-color: #9747ff;
+        border: none;
+        cursor: pointer;
+      }
+      .conference-starter:hover {
+        background-color: #542790;
+      }
+
+      .conference-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        margin-top: 20px;
+      }
+      .conference-item {
+        width: 30%;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 4px solid #14ae5c;
+        border-radius: 30px;
+        background-color: #dcf3e6;
+        font-weight: 600;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+          0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      .conference-item input[type="submit" i] {
+        background-color: #9747ff;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      .conference-item input[type="submit" i]:hover {
+        background-color: #542790;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
+          <li>
+            <a href="/katildigim_konferanslar">Katıldığım Konferanslar</a>
+          </li>
+          <li>
+            <a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a>
+          </li>
+          <li><a href="/yazilarim">Yazılarım</a></li>
+          <li><a href="/incelemelerim">İncelemelerim</a></li>
+          <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <h1>Tüm Konferanslar</h1>
+      <button
+        class="conference-starter"
+        onclick="window.location.href='/yeni_konferans'"
+      >
+        Yeni Konferans Oluştur
+      </button>
+      <div class="conference-grid">
+        <% conferences.forEach(conference => { %>
+        <div class="conference-item">
+          <h2><%= conference.name %></h2>
+          <p>ID: <%= conference._id %></p>
+          <p>Başlangıç Tarihi: <%= conference.startDate %></p>
+          <p>Bitiş Tarihi: <%= conference.endDate %></p>
+          <p>Adres: <%= conference.address %></p>
+
+          <% if (!conference.attendeeList.get(user._id)) { %>
+          <form
+            action="/conference/<%= conference._id %>/user/<%= user._id %>/role/1/0"
+            method="GET"
+          >
+            <input
+              class="submit"
+              type="submit"
+              placeholder="LOGIN"
+              value="Attend"
+            />
+          </form>
+          <% } %>
         </div>
+        <% }); %>
+      </div>
     </main>
-</body>
+  </body>
 </html>

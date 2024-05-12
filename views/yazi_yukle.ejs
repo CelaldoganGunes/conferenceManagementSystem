@@ -1,87 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yazı Yükle</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        header {
-            background-color: #f8f9fa;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-        }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: white;
+        font-family: "Roboto", sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        height: 2.25rem;
+      }
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      nav ul li {
+        display: inline;
+        margin-right: 10px;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #9747ff;
+        color: white;
+      }
+      nav ul li a:hover {
+        background-color: #542790;
+      }
+      .paper-upload-wrapper {
+        width: 25rem;
+        height: 31.25rem;
+        background-color: #f0f0f0;
+        border: 1px solid gray;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 3rem auto;
+        color: gray;
+      }
+
+      .paper-upload-wrapper form {
+        padding: 0;
+      }
+
+      .paper-upload-wrapper h1 {
+        color: #9747ff;
+        text-align: center;
+      }
+
+      .paper-upload-wrapper input {
+        margin: 0.75rem;
+        display: block;
+        width: 90%;
+        outline: none;
+        border: 1px solid #dee0ea;
+        padding: 0.5rem 0.5rem 0.5rem 0.938rem;
+      }
+
+      .paper-upload-wrapper input:focus {
+        border-color: grey;
+      }
+
+      .paper-upload-wrapper button {
+        display: block;
+        color: white;
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin: 3rem auto;
+        background-color: #9747ff;
+        border: none;
+        cursor: pointer;
+      }
+
+      .paper-upload-wrapper button:hover {
+        background-color: #542790;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
-                <li><a href="/katildigim_konferanslar">Katıldığım Konferanslar</a></li>
-                <li><a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a></li>
-                <li><a href="/yazilarim">Yazılarım</a></li>
-                <li><a href="/incelemelerim">İncelemelerim</a></li>
-                <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
+          <li>
+            <a href="/katildigim_konferanslar">Katıldığım Konferanslar</a>
+          </li>
+          <li>
+            <a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a>
+          </li>
+          <li><a href="/yazilarim">Yazılarım</a></li>
+          <li><a href="/incelemelerim">İncelemelerim</a></li>
+          <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
+        </ul>
+      </nav>
     </header>
+    <div class="paper-upload-wrapper">
+      <h1>Yeni Yazı Yükle</h1>
 
-    <h1>Yeni Yazı Yükle</h1>
-
-    <form action="/paper" method="post">
+      <form action="/paper" method="post">
         <div>
-            <label for="name">Konferans Adı:</label>
-            <select name="conferenceId" required>
-                <% conferences.forEach(conference => { %>
-                    <option value="<%= conference.id %>"><%= conference.name %></option>
-                <% }); %>
-            </select>
+          <label for="name">Konferans Adı:</label>
+          <select name="conferenceId" required>
+            <% conferences.forEach(conference => { %>
+            <option value="<%= conference.id %>"><%= conference.name %></option>
+            <% }); %>
+          </select>
         </div>
 
         <div>
-            <label for="title">Paper Adı:</label>
-            <input type="text" id="title" name="title" required>
+          <label for="title">Paper Adı:</label>
+          <input type="text" id="title" name="title" required />
         </div>
 
         <div>
-            <label for="abstract">Abstract:</label>
-            <input type="text" id="abstract" name="abstract" required>
+          <label for="abstract">Abstract:</label>
+          <input type="text" id="abstract" name="abstract" required />
         </div>
 
         <div>
-            <label for="keywords">Keywords:</label>
-            <input type="text" id="keywords" name="keywords" required>
+          <label for="keywords">Keywords:</label>
+          <input type="text" id="keywords" name="keywords" required />
         </div>
 
         <div>
-            <label for="pdfFile">
-                <a href="/not_implemented" target="_blank">PDF Dosyası Seç</a>
-            </label>
-            <p for="warning">Konferansta Reviewer rolünde biri yoksa hata verecektir. Otomatik atama yapıldığından dolayı böyle.</p>
+          <label for="pdfFile">
+            <a href="/not_implemented" target="_blank">PDF Dosyası Seç</a>
+          </label>
+          <p for="warning">
+            Konferansta Reviewer rolünde biri yoksa hata verecektir. Otomatik
+            atama yapıldığından dolayı böyle.
+          </p>
         </div>
 
-        <input type="hidden" name="creatorId" value="<%= user._id %>">
+        <input type="hidden" name="creatorId" value="<%= user._id %>" />
 
         <button type="submit">Gönder</button>
-    </form>
-    
-</body>
+      </form>
+    </div>
+  </body>
 </html>

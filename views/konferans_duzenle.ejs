@@ -1,110 +1,236 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Yeni Konferans Oluştur</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        header {
-            background-color: #f8f9fa;
-            padding: 10px 0;
-            margin-bottom: 20px;
-        }
-        nav ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        nav ul li {
-            display: inline;
-            margin-right: 10px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #000;
-            padding: 5px 10px;
-            border-radius: 5px;
-            background-color: #007bff;
-            color: white;
-        }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        background-color: #fff7df;
+        color: rgb(65, 65, 65);
+        text-align: center;
+        font-family: "Roboto", sans-serif;
+      }
+      a {
+        text-decoration: none;
+      }
+      header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #f8f9fa;
+        padding: 10px 0;
+        margin-bottom: 20px;
+        height: 2.25rem;
+        border-bottom: 1px solid rgb(227, 218, 218);
+      }
+      h1 {
+        color: #9747ff;
+      }
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        text-align: center;
+      }
+      nav ul li {
+        display: inline;
+        margin-right: 10px;
+      }
+      nav ul li a {
+        text-decoration: none;
+        color: #000;
+        padding: 5px 10px;
+        border-radius: 5px;
+        background-color: #9747ff;
+        color: white;
+      }
+      nav ul li a:hover {
+        background-color: #542790;
+      }
+
+      .edit-conference {
+        text-align: start;
+        width: 25rem;
+        height: 41rem;
+        background-color: #f0f0f0;
+        border: 1px solid gray;
+        border-radius: 8px;
+        padding: 2rem;
+        margin: 1rem auto;
+        color: gray;
+      }
+
+      .edit-conference form {
+        padding: 0;
+      }
+
+      .edit-conference h1 {
+        color: #9747ff;
+        text-align: center;
+      }
+
+      .edit-conference input {
+        margin-bottom: 0.3rem;
+        display: block;
+        width: 100%;
+        outline: none;
+        border: 1px solid #dee0ea;
+        padding: 0.5rem 0.5rem 0.5rem 0.938rem;
+      }
+      .edit-conference select {
+        margin: 0.45rem;
+        display: block;
+        width: 100%;
+        outline: none;
+        border: 1px solid #dee0ea;
+        padding: 0.5rem 0.5rem 0.5rem 0.938rem;
+      }
+
+      .edit-conference input:focus {
+        border-color: grey;
+      }
+
+      .edit-conference button {
+        display: block;
+        color: white;
+        padding: 0.5rem;
+        border-radius: 5px;
+        margin: 0 auto;
+        background-color: #9747ff;
+        border: none;
+      }
+
+      .edit-conference button:hover {
+        background-color: #7637c9;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header>
-        <nav>
-            <ul>
-                <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
-                <li><a href="/katildigim_konferanslar">Katıldığım Konferanslar</a></li>
-                <li><a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a></li>
-                <li><a href="/yazilarim">Yazılarım</a></li>
-                <li><a href="/incelemelerim">İncelemelerim</a></li>
-                <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
-            </ul>
-        </nav>
+      <nav>
+        <ul>
+          <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
+          <li>
+            <a href="/katildigim_konferanslar">Katıldığım Konferanslar</a>
+          </li>
+          <li>
+            <a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a>
+          </li>
+          <li><a href="/yazilarim">Yazılarım</a></li>
+          <li><a href="/incelemelerim">İncelemelerim</a></li>
+          <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
+        </ul>
+      </nav>
     </header>
-
-    <h1>Konferans Düzenle</h1>
-    <form action="/conference/update/<%= conference._id %>" method="POST">
+    <div class="edit-conference">
+      <h1>Konferans Düzenle</h1>
+      <form action="/conference/update/<%= conference._id %>" method="POST">
         <div>
-            <label for="name">Konferans Adı:</label>
-            <input type="text" id="name" name="name" value="<%= conference.name %>" required>
+          <label for="name">Konferans Adı:</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value="<%= conference.name %>"
+            required
+          />
         </div>
         <div>
-            <label for="address">Adres:</label>
-            <input type="text" id="address" name="address" value="<%= conference.address %>" required>
-        </div><div>
-            <label for="startDate">Başlangıç Tarihi:</label>
-            <input type="date" id="startDate" name="startDate" value="<%= conference.startDateString %>" required>
+          <label for="address">Adres:</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            value="<%= conference.address %>"
+            required
+          />
         </div>
         <div>
-            <label for="endDate">Bitiş Tarihi: </label>
-            <input type="date" id="endDate" name="endDate" value="<%= conference.endDateString %>" required>
+          <label for="startDate">Başlangıç Tarihi:</label>
+          <input
+            type="date"
+            id="startDate"
+            name="startDate"
+            value="<%= conference.startDateString %>"
+            required
+          />
         </div>
         <div>
-            <label for="attendeeLimit">Maksimum Katılımcı Limiti:</label>
-            <select id="attendeeLimit" value="<%= conference.attendeeLimit %>" name="attendeeLimit" required>
-                <% for (let i = 50; i <= 100; i++) { %>
-                    <% if (i === conference.attendeeLimit) { %>
-                        <option value="<%= i %>" selected><%= i %></option>
-                    <% } else { %>
-                        <option value="<%= i %>"><%= i %></option>
-                    <% } %>
-                <% } %>
-            </select>
-            
+          <label for="endDate">Bitiş Tarihi: </label>
+          <input
+            type="date"
+            id="endDate"
+            name="endDate"
+            value="<%= conference.endDateString %>"
+            required
+          />
         </div>
-
+        <div>
+          <label for="attendeeLimit">Maksimum Katılımcı Limiti:</label>
+          <select
+            id="attendeeLimit"
+            value="<%= conference.attendeeLimit %>"
+            name="attendeeLimit"
+            required
+          >
+            <% for (let i = 50; i <= 100; i++) { %> <% if (i ===
+            conference.attendeeLimit) { %>
+            <option value="<%= i %>" selected><%= i %></option>
+            <% } else { %>
+            <option value="<%= i %>"><%= i %></option>
+            <% } %> <% } %>
+          </select>
+        </div>
 
         <button type="submit">Kaydet</button>
-    </form>
+      </form>
 
-    <h1>Katılımcıları Düzenle</h1>
-    <form id="myForm" action="/conference/<%= conference._id %>/user/<%= user._id %>/role/0/1" method="GET">
+      <h1>Katılımcıları Düzenle</h1>
+      <form
+        id="myForm"
+        action="/conference/<%= conference._id %>/user/<%= user._id %>/role/0/1"
+        method="GET"
+      >
         <div>
-            <label for="attendee">Katılımcı Seç:</label>
-            <select id="attendee" name="attendee">
-                <% if (conference.attendeeNameArray && conference.attendeeNameArray.length > 0) { %>
-                    <% for (let i = 0; i < conference.keys.length; i++) { %>
-                        <option value="<%= conference.keys[i] %>"> <%= conference.attendeeNameArray[i] %> - <%= conference.roleNames[conference.roles[i]] %> </option>
-                    <% } %>
-                <% } else { %>
-                    <option disabled selected>No attendees</option>
-                <% } %>
-            </select>
+          <label for="attendee">Katılımcı Seç:</label>
+          <select id="attendee" name="attendee">
+            <% if (conference.attendeeNameArray &&
+            conference.attendeeNameArray.length > 0) { %> <% for (let i = 0; i <
+            conference.keys.length; i++) { %>
+            <option value="<%= conference.keys[i] %>">
+              <%= conference.attendeeNameArray[i] %> - <%=
+              conference.roleNames[conference.roles[i]] %>
+            </option>
+            <% } %> <% } else { %>
+            <option disabled selected>No attendees</option>
+            <% } %>
+          </select>
         </div>
         <div>
-            <label for="role">Rol Seç:</label>
-            <select id="role" name="role">
-                <option value="1">Attendee</option>
-                <option value="2">Reviewer</option>
-                <option value="3">Author</option>
-                <option value="4">Conf Admin (Hocam lütfen bunu seçmeyin)</option>
-            </select>
+          <label for="role">Rol Seç:</label>
+          <select id="role" name="role">
+            <option value="1">Attendee</option>
+            <option value="2">Reviewer</option>
+            <option value="3">Author</option>
+            <option value="4">Conf Admin (Hocam lütfen bunu seçmeyin)</option>
+          </select>
         </div>
         <button type="submit">Kaydet</button>
-
-    </form>
-
-</body>
+      </form>
+    </div>
+  </body>
 </html>
