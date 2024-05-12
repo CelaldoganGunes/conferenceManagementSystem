@@ -73,13 +73,47 @@
         <div class="conference-grid">
             <% reviews.forEach(review => { %>
                 <div class="conference-item">
-                    <h2><%= review.reviewerId %></h2>
-                    <p>Yazı: <%= review.paper.paperId %></p>
-                    <p>feedback: <%= review.feedback %></p>
-                    <button onclick="window.location.href='/inceleme_ekle/<%= review._id %>'">İnceleme Ekle</button>
+                    <h2>Paper: <%= review.paper.title %></h2>
+                    <% if(review.rate < 0) { %>
+                        <p>İnceleme yapılması gerekiyor</p>
+                        <button onclick="showReviewForm('<%= review._id %>')">İnceleme Ekle</button>
+                        <div id="reviewForm_<%= review._id %>" style="display: none;">
+                            <form action="/review/<%= review._id %>" method="POST">
+                                <div>
+                                <div>
+                                    <label for="rate_<%= review._id %>">Puan:</label>
+                                    <input type="number" id="rate_<%= review._id %>" name="rate" min="0" max="10" required>
+                                </div>
+                                <div>
+                                    <label for="feedback_<%= review._id %>">Geri Bildirim:</label>
+                                    <textarea id="feedback_<%= review._id %>" name="feedback" rows="4" cols="50" required></textarea>
+                                </div>
+                                <button type="submit">Gönder</button>
+                            </div>
+                            </form>
+                        </div>
+                    <% } else { %>
+                        <p>Rate: <%= review.rate %>/10</p>
+                        <p>Feedback: <%= review.feedback %></p>
+                    <% } %>
                 </div>
             <% }); %>
         </div>
     </main>
+    
+    
+    <script>
+        function showReviewForm(reviewId) {
+            var reviewForm = document.getElementById('reviewForm_' + reviewId);
+            if (reviewForm.style.display === "none") {
+                reviewForm.style.display = "block";
+            } else {
+                reviewForm.style.display = "none";
+            }
+            
+        }
+    </script>
+    
+    
 </body>
 </html>

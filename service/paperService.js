@@ -30,9 +30,9 @@ async function createPaper(creatorId, conferenceId, title, abstract, keywords) {
         
         const randomIndex = Math.floor(Math.random() * reviewerList.length);
         let reviewerId = reviewerList[randomIndex];
-        console.log(reviewerId);
+        //console.log(reviewerId);
         // Review oluştur
-        const review = await reviewService.createReview(reviewerId, savedPaper._id, 0, "Paper has not been reviewed yet.");
+        const review = await reviewService.createReview(reviewerId, savedPaper._id, -1, "Paper has not been reviewed yet.");
 
         return savedPaper;
     } catch (error) {

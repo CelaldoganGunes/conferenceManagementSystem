@@ -201,6 +201,7 @@ app.get('/incelemelerim', async(req,res) => {
 
     for (const review of reviews) {
         review.paper = await paperService.getPaperById(review.paperId);
+        console.log(review.paper)
     }
     res.render("incelemelerim",{
         reviews: reviews,

@@ -7,7 +7,7 @@ router.get('/', reviewController.getReviews);
 router.get('/:reviewId', reviewController.getReviewById);
 router.get('/paper/:paperId', reviewController.getReviewsByPaperId);
 router.get('/reviewer/:reviewerId', reviewController.getPaperByReviewerId);
-router.put('/:reviewId', reviewController.updateReview);
+router.post('/:reviewId', reviewController.updateReview);
 router.delete('/:reviewId', reviewController.deleteReview);
 
 module.exports = router;
