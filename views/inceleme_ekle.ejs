@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Konferans Oluştur</title>
+    <style>
+        header {
+            background-color: #f8f9fa;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        nav ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 10px;
+        }
+        nav ul li a {
+            text-decoration: none;
+            color: #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/tum_konferanslar">Tüm Konferanslar</a></li>
+                <li><a href="/katildigim_konferanslar">Katıldığım Konferanslar</a></li>
+                <li><a href="/olusturdugum_konferanslar">Oluşturduğum Konferanslar</a></li>
+                <li><a href="/yazilarim">Yazılarım</a></li>
+                <li><a href="#">İncelemelerim</a></li>
+                <li><a href="/cikis" class="logout-button">Çıkış Yap</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h1>Yeni İnceleme oluştur</h1>
+    <form action="/conference/create" method="POST">
+        <h2><% review></h2>
+        <div>
+            <label for="rate">İnceleme Puanı:</label>
+            <input type="number" id="rate" name="rate" required>
+        </div><div>
+            <label for="feedback">Değerlendirmeler:</label>
+            <input type="test" id="feedback" name="feedback" required>
+        </div>
+        
+        <input type="hidden" name="attendeeList" value="default">
+        <input type="hidden" name="creatorId" value="<%= user._id %>">
+
+
+        <button type="submit">Konferans Oluştur</button>
+    </form>
+    
+
+</body>
+</html>

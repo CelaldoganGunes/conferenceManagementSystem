@@ -77,6 +77,7 @@ app.get('/tum_konferanslar', async (req, res) => {
 
     let conferenceService = require('./service/conferenceService');
     const conferences = await conferenceService.getConferences();
+    console.log(conferences);
     
     res.render('tum_konferanslar', { 
         conferences : conferences ,
@@ -179,6 +180,34 @@ app.get('/yazi_yukle',async(req,res) => {
     }
     res.send("anasikim");
 });
+
+app.get('/incelemelerim', async(req,res) => {
+    if (req.session.isLoggedIn != true)
+        {
+            return res.redirect('/login');
+        }
+        const reviewService = require('./service/reviewService');
+        const paperService = require('./service/paperService');
+
+        const reviews = await reviewService.getPaperByReviewerId(req.session.user._id);
+        reviews.forEach(async(review) =>{
+            review.paper = await paperService.getPaperById(review.paperId);
+        });
+        res.render("incelemelerim",{
+            reviews:reviews,
+            user : req.session.user
+        });
+});
+
+app.get('/inceleme_ekle/:reviewId',async (req,res) => {
+    if (req.session.isLoggedIn != true){
+        return res.redirect('/login');
+    }
+    const reviewService = require('./service/reviewService');
+    const paperService = require('./service/paperService');    
+    const review = await reviewService.getReviewById(req.params.reviewId);
+    res.render("inceleme_ekle",{})
+})
 
 
 
