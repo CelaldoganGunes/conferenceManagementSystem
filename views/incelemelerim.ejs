@@ -77,6 +77,7 @@
                     <% if(review.rate < 0) { %>
                         <p>İnceleme yapılması gerekiyor</p>
                         <button onclick="showReviewForm('<%= review._id %>')">İnceleme Ekle</button>
+                        
                         <div id="reviewForm_<%= review._id %>" style="display: none;">
                             <form action="/review/<%= review._id %>" method="POST">
                                 <div>

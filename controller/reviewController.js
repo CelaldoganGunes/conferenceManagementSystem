@@ -55,7 +55,7 @@ const reviewController = {
             const reviewId = req.params.reviewId;
             const newData = req.body;
             const updatedReview = await ReviewService.updateReview(reviewId, newData);
-            res.json(updatedReview);
+            return res.redirect("/incelemelerim");
         } catch (error) {
             next(error);
         }
