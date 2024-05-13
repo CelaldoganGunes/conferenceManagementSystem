@@ -7,7 +7,7 @@ const PaperService = require('../service/paperService');
 describe('Paper Service', () => {
   let author, reviewer, attendee, conference;
 
-  beforeAll(async () => {
+  beforeEach(async () => {
     await mongoose.connect('mongodb://localhost/testdb', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -64,20 +64,21 @@ describe('Paper Service', () => {
   });
 
   it('should create a new paper', async () => {
+    console.log(conference);
     const paperData = {
       title: 'Test Paper',
       abstract: 'This is a test paper',
       keywords: 'test, paper',
-      authorId: author._id,
+      creatorId: author._id,
       conferenceId: conference._id, // Use the existing conference ID
     };
   
     const createdPaper = await PaperService.createPaper(
+      paperData.creatorId,
+      paperData.conferenceId,
       paperData.title,
       paperData.abstract,
-      paperData.keywords,
-      paperData.authorId,
-      paperData.conferenceId
+      paperData.keywords
     );
   
     expect(createdPaper.title).toBe(paperData.title);
@@ -105,19 +106,19 @@ describe('Paper Service', () => {
     };
 
     await PaperService.createPaper(
+      paperData1.authorId,
+      paperData1.conferenceId,
       paperData1.title,
       paperData1.abstract,
       paperData1.keywords,
-      paperData1.authorId,
-      paperData1.conferenceId
     );
 
     await PaperService.createPaper(
+      paperData2.authorId,
+      paperData2.conferenceId,
       paperData2.title,
       paperData2.abstract,
-      paperData2.keywords,
-      paperData2.authorId,
-      paperData2.conferenceId
+      paperData2.keywords
     );
 
     const papers = await PaperService.getPapers();
