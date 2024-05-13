@@ -1,5 +1,4 @@
 require('dotenv').config();
-
 const mongoose = require('mongoose');
 const PaperService = require('../../service/paperService');
 const Paper = require('../../model/paper');
@@ -17,29 +16,42 @@ describe('Paper Service', () => {
     await mongoose.connection.close();
   });
 
+  beforeEach(async () => {
+    await Paper.deleteMany();
+    await Conference.deleteMany();
+  });
+
   it('should create a new paper', async () => {
     const conference = new Conference({
       name: 'Test Conference',
       address: 'Test Address',
       startDate: new Date(),
       endDate: new Date(),
-      creatorId: 'test-creator-id',
+      creatorId: new mongoose.Types.ObjectId(),
       attendeeLimit: 100,
+      attendeeList: [],
     });
     await conference.save();
 
     const paperData = {
+      creatorId: new mongoose.Types.ObjectId(),
+      conferenceId: conference._id,
       title: 'Test Paper',
       abstract: 'Test Abstract',
-      authors: ['Author 1', 'Author 2'],
-      conferenceId: conference._id,
+      keywords: 'test, paper',
     };
 
-    const createdPaper = await PaperService.createPaper(paperData);
+    const createdPaper = await PaperService.createPaper(
+      paperData.creatorId,
+      paperData.conferenceId,
+      paperData.title,
+      paperData.abstract,
+      paperData.keywords
+    );
 
     expect(createdPaper.title).toBe(paperData.title);
     expect(createdPaper.abstract).toBe(paperData.abstract);
-    expect(createdPaper.authors).toEqual(paperData.authors);
+    expect(createdPaper.keywords).toBe(paperData.keywords);
     expect(createdPaper.conferenceId).toEqual(paperData.conferenceId);
   });
 
@@ -49,31 +61,48 @@ describe('Paper Service', () => {
       address: 'Test Address',
       startDate: new Date(),
       endDate: new Date(),
-      creatorId: 'test-creator-id',
+      creatorId: new mongoose.Types.ObjectId(),
       attendeeLimit: 100,
+      attendeeList: [],
     });
     await conference.save();
 
-    const paper1 = new Paper({
+    const paperData1 = {
+      creatorId: new mongoose.Types.ObjectId(),
+      conferenceId: conference._id,
       title: 'Test Paper 1',
       abstract: 'Test Abstract 1',
-      authors: ['Author 1', 'Author 2'],
-      conferenceId: conference._id,
-    });
-    await paper1.save();
+      keywords: 'test, paper',
+    };
 
-    const paper2 = new Paper({
+    const paperData2 = {
+      creatorId: new mongoose.Types.ObjectId(),
+      conferenceId: conference._id,
       title: 'Test Paper 2',
       abstract: 'Test Abstract 2',
-      authors: ['Author 3', 'Author 4'],
-      conferenceId: conference._id,
-    });
-    await paper2.save();
+      keywords: 'test, paper',
+    };
 
-    const papers = await PaperService.getAllPapers();
+    await PaperService.createPaper(
+      paperData1.creatorId,
+      paperData1.conferenceId,
+      paperData1.title,
+      paperData1.abstract,
+      paperData1.keywords
+    );
+
+    await PaperService.createPaper(
+      paperData2.creatorId,
+      paperData2.conferenceId,
+      paperData2.title,
+      paperData2.abstract,
+      paperData2.keywords
+    );
+
+    const papers = await PaperService.getPapers();
 
     expect(papers.length).toBe(2);
-    expect(papers[0].title).toBe(paper1.title);
-    expect(papers[1].title).toBe(paper2.title);
+    expect(papers[0].title).toBe(paperData1.title);
+    expect(papers[1].title).toBe(paperData2.title);
   });
 });
