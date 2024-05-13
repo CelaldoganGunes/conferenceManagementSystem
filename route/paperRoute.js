@@ -1,6 +1,6 @@
 const express = require('express');
-const multer = require('multer');
 const router = express.Router();
+const multer = require('multer');
 const paperController = require('../controller/paperController');
 const path = require('path');
 
