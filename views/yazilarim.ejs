@@ -129,8 +129,10 @@
           <% } %>
           <p>Özet: <%= paper.abstract %></p>
           <p>Anahtar Kelimeler: <%= paper.keywords %></p>
-          <p>Reviewer Rate: <%= paper.review.rate %></p>
-          <p>Reviewer Feedback: <%= paper.review.feedback %></p>
+          <%if(paper.review){%>
+            <p>Reviewer Rate: <%= paper.review.rate %></p>
+            <p>Reviewer Feedback: <%= paper.review.feedback %></p>
+            <%}%>    
         </div>
         <% }); %>
       </div>
