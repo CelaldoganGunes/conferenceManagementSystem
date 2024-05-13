@@ -10,10 +10,16 @@ const paperController = {
         console.log(req.body)
         
         try {
+            const newPaper = await paperService.createPaper(creatorId, conferenceId, title, abstract, keywords, pdffile);
+            if (newPaper === null) {
+                console.log("newpaper == null")
+                return res.send("Atanmış Review olmadığı için ekleme başarısız");
+            }
+            
             // PDF dosyasının adını değiştirme
             const originalFileName = pdfFile.originalname;
             const extension = path.extname(originalFileName);
-            const newFileName = `${creatorId}${extension}`; // Yeni dosya adı: creatorId.pdf
+            const newFileName = `${newPaper._id}${extension}`; // Yeni dosya adı: creatorId.pdf
             
             // Dosyayı yeniden adlandır
             fs.renameSync(pdfFile.path, path.join(pdfFile.destination, newFileName));
@@ -21,11 +27,6 @@ const paperController = {
             // Yeni dosya adını güncelle
             req.body.pdffile = newFileName;
 
-            const newPaper = await paperService.createPaper(creatorId, conferenceId, title, abstract, keywords, pdffile);
-            if (newPaper === null) {
-                console.log("newpaper == null")
-                return res.send("Atanmış Review olmadığı için ekleme başarısız");
-            }
             res.status(201).json(newPaper);
         } catch (error) {
             next(error);

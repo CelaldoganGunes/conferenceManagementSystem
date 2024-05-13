@@ -6,6 +6,9 @@ const userRoutes = require('./route/userRoute');
 const paperRoutes = require('./route/paperRoute');
 const conferenceRoutes = require('./route/conferenceRoute');
 const reviewRoutes = require('./route/reviewRoute');
+
+const fs = require('fs');
+const path = require('path');
 //const sessionRoutes = require('./route/sessionRoutes');
 
 const app = express();
@@ -229,12 +232,12 @@ app.get('/inceleme_ekle/:reviewId',async (req,res) => {
 
 app.get('/not_implemented',(req,res)=>{
     res.send("Bu özellik henüz eklenmedi.");
-})
+}),
 
-router.get('/download/:paperId', (req, res) => {
+app.get('/files/:paperId', (req, res) => {
     const paperId = req.params.paperId;
     // Dosyanın yolu (bu örnekte varsayılan olarak files klasörü altında saklandığı varsayılmıştır)
-    const filePath = path.join(__dirname, '..', 'files', paperId + '.pdf');
+    const filePath = path.join('.', 'files', paperId);
   
     // Dosyanın varlığını kontrol ediyoruz
     fs.access(filePath, fs.constants.F_OK, (err) => {
@@ -253,11 +256,7 @@ router.get('/download/:paperId', (req, res) => {
         console.log('Dosya başarıyla indirildi.');
       });
     });
-  });
-
-
-
-
+});
 
 const PORT = process.env.PORT || 80;
 app.listen(PORT, () => {
