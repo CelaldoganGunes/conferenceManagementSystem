@@ -40,6 +40,7 @@ describe('User Service', () => {
     expect(createdUser.isSystemAdmin).toBe(false);
   });
 
+  
   it('should return all users', async () => {
     const users = await userService.getUsers();
 
