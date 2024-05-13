@@ -63,6 +63,7 @@ describe('User Service', () => {
     expect(duplicateUser).toBeNull();
   });
 
+  
   it('should return all users', async () => {
     const user1 = {
       name: 'John Doe',
