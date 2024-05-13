@@ -157,6 +157,7 @@
         <% reviews.forEach(review => { %>
         <div class="conference-item">
           <h2>Paper: <%= review.paper.title %></h2>
+          <a href="/download/<%= review.paper._id %>" class="button">Paper'ı indirmek için tıkla.</a>
           <% if(review.rate < 0) { %>
           <p>İnceleme yapılması gerekiyor</p>
           <button onclick="showReviewForm('<%= review._id %>')">
