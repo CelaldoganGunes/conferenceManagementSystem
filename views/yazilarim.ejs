@@ -129,6 +129,7 @@
           <% } %>
           <p>Özet: <%= paper.abstract %></p>
           <p>Anahtar Kelimeler: <%= paper.keywords %></p>
+          <a href="/download/<%= paper._id %>" class="button">Paper'ı indirmek için tıkla.</a>
           <%if(paper.review){%>
             <p>Reviewer Rate: <%= paper.review.rate %></p>
             <p>Reviewer Feedback: <%= paper.review.feedback %></p>
