@@ -58,7 +58,7 @@
       }
       .paper-upload-wrapper {
         width: 25rem;
-        height: 31.25rem;
+        height: 33rem;
         background-color: #f0f0f0;
         border: 1px solid gray;
         border-radius: 8px;
@@ -152,9 +152,18 @@
 
         <div>
           <label for="pdfFile">PDF Dosyası:</label>
-          <input type="file" id="pdfFile" name="pdfFile" accept=".pdf" required>
-            <p for="warning">Konferansta Reviewer rolünde biri yoksa hata verecektir. Otomatik atama yapıldığından dolayı böyle.</p>
-      </div>
+          <input
+            type="file"
+            id="pdfFile"
+            name="pdfFile"
+            accept=".pdf"
+            required
+          />
+          <p for="warning">
+            Konferansta Reviewer rolünde biri yoksa hata verecektir. Otomatik
+            atama yapıldığından dolayı böyle.
+          </p>
+        </div>
 
         <input type="hidden" name="creatorId" value="<%= user._id %>" />
 
