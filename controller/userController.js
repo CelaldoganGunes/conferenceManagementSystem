@@ -39,7 +39,7 @@ const userController = {
             const conferences = await conferenceService.getConferences();
             console.log("asds");
             if (!conferences) {
-                return res.status(404).json({ message: 'Konferans bulunamadı amk' });
+                return res.status(404).json({ message: 'Konferans bulunamadı' });
             }
             
             let conferencesOfTheUser = [];
