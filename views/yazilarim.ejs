@@ -130,10 +130,10 @@
           <p>Özet: <%= paper.abstract %></p>
           <p>Anahtar Kelimeler: <%= paper.keywords %></p>
           <a href="/files/<%= paper._id %>.pdf" class="button">Paper'ı indirmek için tıkla.</a>
-          <%if(paper.review){%>
+          <%if(paper.review.rate != -1){%>
             <p>Reviewer Rate: <%= paper.review.rate %></p>
-            <p>Reviewer Feedback: <%= paper.review.feedback %></p>
             <%}%>    
+            <p>Reviewer Feedback: <%= paper.review.feedback %></p>
         </div>
         <% }); %>
       </div>
