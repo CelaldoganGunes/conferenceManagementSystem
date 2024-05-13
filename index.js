@@ -19,7 +19,7 @@ app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 * 60}})) //Tes
 
 
 // MongoDB bağlantısı
-mongoose.connect('mongodb://localhost:27017/mydatabase').then(() => {
+mongoose.connect('mongodb://127.0.0.1:27017/mydatabase').then(() => {
     console.log('MongoDB connected');
 }).catch(err => {
     console.error('MongoDB connection error', err);
