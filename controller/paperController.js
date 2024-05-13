@@ -6,6 +6,9 @@ const paperController = {
         console.log(req.body)
         try {
             const newPaper = await paperService.createPaper(creatorId, conferenceId, title, abstract, keywords, pdffile);
+            if(newPaper === null){
+                console.log("newpaper == null")
+                return res.send("Atanmış Review olmadığı için ekleme başarısız");}
             res.status(201).json(newPaper);
         } catch (error) {
             next(error);

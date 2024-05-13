@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const paperController = require('../controller/paperController');
-
+//const upload = multer({ dest: 'files/' }); // Yüklenen dosyaların geçici olarak saklanacağı klasör
+//upload.single('pdfFile')
 
 
 router.get('/', paperController.getPapers);

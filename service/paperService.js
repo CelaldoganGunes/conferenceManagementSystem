@@ -12,12 +12,11 @@ async function createPaper(creatorId, conferenceId, title, abstract, keywords, f
             abstract,
             keywords
         });
-        const savedPaper = await newPaper.save();
-
+        
         // Reviewer'ları belirle
         
         const reviewerList = [];
-
+        
         let conference = await conferenceService.getConferenceById(conferenceId);
         conference.attendeeList.forEach((value, key) => {
             if (value == 2)// reviewer rol ID
@@ -25,6 +24,12 @@ async function createPaper(creatorId, conferenceId, title, abstract, keywords, f
                 reviewerList.push(key);
             }
         });
+        
+        if (reviewerList.length === 0) {
+            return null;
+        }
+        //eğer review yoksa null obje döndürecek
+        const savedPaper = await newPaper.save();
         
         // Rastgele bir Reviewer seç
         
