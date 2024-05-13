@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const Review = require("../../models/review");
+const Review = require("../../model/review");
 
 describe("Review Model", () => {
   beforeAll(async () => {

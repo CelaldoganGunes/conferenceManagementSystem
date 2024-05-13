@@ -1,7 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const PaperService = require('../service/paperService');
-const Paper = require('../model/paper');
+const PaperService = require('../../service/paperService');
+const Paper = require('../../model/paper');
+const Conference = require('../../model/conference');
 
 describe('Paper Service', () => {
     beforeAll(async () => {
@@ -17,12 +18,16 @@ describe('Paper Service', () => {
 
     beforeEach(async () => {
         await Paper.deleteMany();
+        await Conference.deleteMany();
     });
 
     it('should create a new paper', async () => {
+        const conferenceId = new mongoose.Types.ObjectId();
+        await Conference.create({ _id: conferenceId, attendeeList: [] });
+
         const paperData = {
             creatorId: new mongoose.Types.ObjectId(),
-            conferenceId: new mongoose.Types.ObjectId(),
+            conferenceId: conferenceId,
             title: 'Test Paper',
             abstract: 'This is a test paper',
             keywords: 'test, paper',
@@ -45,16 +50,21 @@ describe('Paper Service', () => {
     });
 
     it('should return all papers', async () => {
+        const conferenceId1 = new mongoose.Types.ObjectId();
+        const conferenceId2 = new mongoose.Types.ObjectId();
+        await Conference.create({ _id: conferenceId1, attendeeList: [] });
+        await Conference.create({ _id: conferenceId2, attendeeList: [] });
+
         const paperData1 = {
             creatorId: new mongoose.Types.ObjectId(),
-            conferenceId: new mongoose.Types.ObjectId(),
+            conferenceId: conferenceId1,
             title: 'Test Paper 1',
             abstract: 'This is test paper 1',
             keywords: 'test, paper',
         };
         const paperData2 = {
             creatorId: new mongoose.Types.ObjectId(),
-            conferenceId: new mongoose.Types.ObjectId(),
+            conferenceId: conferenceId2,
             title: 'Test Paper 2',
             abstract: 'This is test paper 2',
             keywords: 'test, paper',

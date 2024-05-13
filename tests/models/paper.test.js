@@ -1,6 +1,6 @@
 require("dotenv").config();
 const mongoose = require("mongoose");
-const Paper = require("../../models/paper");
+const Paper = require("../../model/paper");
 
 describe("Paper Model", () => {
   beforeAll(async () => {
