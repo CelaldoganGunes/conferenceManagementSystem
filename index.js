@@ -48,7 +48,11 @@ app.get('/', (req, res) => {
 });
 
 app.get('/login', (req, res) => {
-    res.render('login'); // login.ejs dosyasını render et
+    if (req.session.isLoggedIn == true)
+        {
+            return res.redirect('/tum_konferanslar');
+        }
+        res.render('login'); // login.ejs dosyasını render et
 });
 
 // GET request ile register sayfasını göster

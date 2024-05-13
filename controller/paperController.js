@@ -27,7 +27,7 @@ const paperController = {
             // Yeni dosya adını güncelle
             req.body.pdffile = newFileName;
 
-            res.status(201).json(newPaper);
+            res.redirect('/yazilarim');
         } catch (error) {
             next(error);
         }
