@@ -8,22 +8,22 @@ const path = require('path');
 
 // Multer'ı ayarlarla birlikte kullanarak yükleme yapmak üzere hazırlıyoruz
 const upload = multer({ storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, './files'); // Dosyanın kaydedileceği klasör
-    },
-    filename: function (req, file, cb) {
-      // Yüklenen dosyanın uzantısını kontrol ediyoruz
-      let extension = path.extname(file.originalname);
-      if (extension !== '.pdf') {
-        // Eğer dosya PDF değilse, uzantıyı PDF'ye çeviriyoruz
-        extension = '.pdf';
-      }
-  
-      // Yeni dosya adını oluşturuyoruz
-      const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-      cb(null, 'uploaded-' + uniqueSuffix + extension); // Örneğin: uploaded-1620871190294-123456789.pdf
+  destination: function (req, file, cb) {
+    cb(null, './files'); // Dosyanın kaydedileceği klasör
+  },
+  filename: function (req, file, cb) {
+    // Yüklenen dosyanın uzantısını kontrol ediyoruz
+    let extension = path.extname(file.originalname);
+    if (extension !== '.pdf') {
+      // Eğer dosya PDF değilse, uzantıyı PDF'ye çeviriyoruz
+      extension = '.pdf';
     }
-  }) });
+
+    // Yeni dosya adını oluşturuyoruz
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, 'uploaded-' + uniqueSuffix + extension); // Örneğin: uploaded-1620871190294-123456789.pdf
+  }
+}) });
 
 // Rotaları tanımlıyoruz
 router.get('/', paperController.getPapers);

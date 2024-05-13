@@ -231,6 +231,29 @@ app.get('/not_implemented',(req,res)=>{
     res.send("Bu özellik henüz eklenmedi.");
 })
 
+router.get('/download/:paperId', (req, res) => {
+    const paperId = req.params.paperId;
+    // Dosyanın yolu (bu örnekte varsayılan olarak files klasörü altında saklandığı varsayılmıştır)
+    const filePath = path.join(__dirname, '..', 'files', paperId + '.pdf');
+  
+    // Dosyanın varlığını kontrol ediyoruz
+    fs.access(filePath, fs.constants.F_OK, (err) => {
+      if (err) {
+        console.error('Dosya bulunamadı:', err);
+        return res.status(404).end(); // Dosya bulunamazsa 404 hatası döndür
+      }
+      
+      // Dosyayı indirme işlemi
+      res.download(filePath, (err) => {
+        if (err) {
+          console.error('İndirme hatası:', err);
+          return res.status(500).end(); // İndirme hatası olursa 500 hatası döndür
+        }
+        
+        console.log('Dosya başarıyla indirildi.');
+      });
+    });
+  });
 
 
 
