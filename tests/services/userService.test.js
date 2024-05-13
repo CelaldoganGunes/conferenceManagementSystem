@@ -147,25 +147,25 @@ describe('User Service', () => {
         name: 'User 1',
         email: 'user1@example.com',
         password: 'password1',
-        isSystemAdmin: false,
+        isSystemAdmin: false
       },
       {
         name: 'User 2',
         email: 'user2@example.com',
         password: 'password2',
-        isSystemAdmin: false,
+        isSystemAdmin: false
       },
       {
         name: 'User 3',
         email: 'user3@example.com',
         password: 'password3',
-        isSystemAdmin: false,
+        isSystemAdmin: false
       },
       {
         name: 'User 4',
         email: 'user4@example.com',
         password: 'password4',
-        isSystemAdmin: false,
+        isSystemAdmin: false
       },
     ];
 
