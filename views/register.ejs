@@ -23,6 +23,10 @@
         color: white;
         font-family: "Roboto", sans-serif;
       }
+      button {
+        font-family: inherit;
+        font-size: 0.9rem;
+      }
       .register-form-wrapper {
         width: 25rem;
         height: 31.25rem;
@@ -60,7 +64,7 @@
         border-color: grey;
       }
 
-      .register-form-wrapper button {
+      .register-form-wrapper .register-form-button {
         display: block;
         margin: 2rem auto;
         color: white;
@@ -69,8 +73,20 @@
         background-color: #9747ff;
         border: none;
       }
-      .register-form-wrapper button:hover {
+      .register-form-wrapper .register-form-buttonhover {
         background-color: #7637c9;
+      }
+      .log-in-button {
+        background-color: transparent;
+        color: #9747ff;
+        border: none;
+        display: block;
+        margin: 1rem auto;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .log-in-button:hover {
+        color: #7637c9;
       }
     </style>
   </head>
@@ -91,9 +107,11 @@
           <input type="password" id="password" name="password" required />
         </div>
         <input type="hidden" name="isSystemAdmin" value="false" />
-        <button type="submit">Kayıt Ol</button>
+        <button type="submit" class="register-form-button">Kayıt Ol</button>
       </form>
-      <button onclick="window.location.href='/login'">Giriş Yap</button>
+      <button class="log-in-button" onclick="window.location.href='/login'">
+        Hesabın var mı? Giriş Yap
+      </button>
     </div>
   </body>
 </html>

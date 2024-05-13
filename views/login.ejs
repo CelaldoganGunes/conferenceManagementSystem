@@ -48,7 +48,7 @@
       }
 
       .login-form-wrapper input {
-        margin: 0.45rem;
+        margin: 0.45rem 0;
         display: block;
         width: 100%;
         outline: none;
@@ -60,17 +60,33 @@
         border-color: grey;
       }
 
-      .login-form-wrapper button {
+      .login-form-wrapper .login-button {
         color: white;
         padding: 0.5rem;
         border-radius: 5px;
-        margin: 0;
+        margin: 1rem 0;
         background-color: #9747ff;
         border: none;
       }
+      button {
+        font-family: inherit;
+        font-size: 0.9rem;
+      }
 
-      .login-form-wrapper button:hover {
+      .login-form-wrapper .login-button:hover {
         background-color: #7637c9;
+      }
+      .register-button {
+        background-color: transparent;
+        color: #9747ff;
+        border: none;
+        display: block;
+        margin: 1rem auto;
+        cursor: pointer;
+        font-weight: 600;
+      }
+      .register-button:hover {
+        color: #7637c9;
       }
     </style>
   </head>
@@ -87,9 +103,14 @@
           <label for="password">Şifre:</label>
           <input type="password" id="password" name="password" required />
         </div>
-        <button type="submit">Giriş Yap</button>
+        <button type="submit" class="login-button">Giriş Yap</button>
       </form>
-      <button onclick="window.location.href='/register'">Kayıt Ol</button>
+      <button
+        class="register-button"
+        onclick="window.location.href='/register'"
+      >
+        Henüz bir hesabın yok mu? Kayıt ol
+      </button>
     </div>
   </body>
 </html>
