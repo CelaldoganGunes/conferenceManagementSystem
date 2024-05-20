@@ -1,13 +1,14 @@
+
 # Conference Management System
 
 Term project for **Software Engineering Class** of **Ege University Computer Engineering Department**
 
-# Contributors
+## Contributors
 
-@Monarch34 https://github.com/Monarch34
-@cheryiit https://github.com/cheryiit
-@basaktepe https://github.com/basaktepe
-@CelaldoganGunes https://github.com/CelaldoganGunes
+ 1. @Monarch34 https://github.com/Monarch34
+ 2. @cheryiit https://github.com/cheryiit 
+ 3. @basaktepe https://github.com/basaktepe
+ 4. @CelaldoganGunes https://github.com/CelaldoganGunes
 
 ## About The Project
 
